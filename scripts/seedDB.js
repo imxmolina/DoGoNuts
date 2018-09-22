@@ -113,7 +113,7 @@ const donutSeed = [
 
 db.Donut
 .remove({})
-.then(() => db.Donut.collection.insertMany(donutSeet))
+.then(() => db.Donut.collection.insertMany(donutSeed))
 .then(data => {
     console.log(data.result.n + "donuts inserted");
     process.exit(0);
