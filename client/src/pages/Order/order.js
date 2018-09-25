@@ -5,6 +5,7 @@ import { donutChoice, donutItem } from "../../components/donutChoice";
 class Order extends Component {
     state = {
         donuts: [],
+        name:"",
         users: [],
     };
 
@@ -16,7 +17,7 @@ class Order extends Component {
         //API FOR GET DONUT
         API.getDonut()
             .then(res =>
-                this.setState({ donuts: res.data })
+                this.setState({ donuts: res.data, name:"" })
             )
             .catch(err => console.log(err));
     };
