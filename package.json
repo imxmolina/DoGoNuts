@@ -1,5 +1,5 @@
 {
-  "name": "mern",
+  "name": "dogonuts",
   "version": "1.0.0",
   "description": "Mern Demo",
   "main": "server.js",
@@ -13,14 +13,22 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "team dogonuts",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
+    "babel": "^6.23.0",
+    "body-parser": "^1.18.3",
     "express": "^4.15.4",
-    "if-env": "^1.0.4"
-  }
+    "if-env": "^1.0.4",
+    "mongoose": "^5.2.17"
+  },
+  "repository": "git+https://github.com/imxmolina/DoGoNuts.git",
+  "bugs": {
+    "url": "https://github.com/imxmolina/DoGoNuts/issues"
+  },
+  "homepage": "https://github.com/imxmolina/DoGoNuts#readme"
 }

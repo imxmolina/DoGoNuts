@@ -1,6 +1,6 @@
 module.exports = {
     User: require("./user"),
     Donut: require("./donut"),
-    Group: require("./group")
+    Box: require("./box")
     //Other models as necessary
 }
