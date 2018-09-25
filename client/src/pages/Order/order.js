@@ -25,6 +25,7 @@ class Order extends Component {
     render() {
         return (
             <div>
+            <h1>CHOICES</h1>
               {this.state.donuts.length ? (
                   <donutChoice>
                       {this.state.donuts.map(donut => (
