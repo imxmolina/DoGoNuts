@@ -1,56 +1,22 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import API from "../src/utils/API";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Order from "./pages/Order";
+import orderList from "./pages/OrderList";
+import errorPage from "./pages/errorPage";
+import { Switch, Route } from "react-router";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div>
-          {this.loadBoxes}
-        </div>
-      </div>
-    );
-  }
+const App = () => (
+  <Router>
+    <div>
+      <Switch>
+        <Route exact path="/" component={ Order }/>
+        <Route exact path="/orderlist" component={ orderList }/>
+        <Route exact path={ errorPage }/>
+      </Switch>
+    </div>
+  </Router>
+)
 
 
-  // When the component mounts, load all books and save them to this.state.books
-  componentDidMount() {
-    this.loadDonuts();
-  }
-
-  // Loads all boxes
-  loadBoxes = () => {
-    API.getBox()
-      .then(res =>
-        this.setState({ donuts: res.data })
-      )
-      .catch(err => console.log(err));
-  };
-
-  loadDonuts = () => {
-    //API FOR GET DONUT
-    API.getDonut()
-        .then(res =>
-            this.setState({ donuts: res.data })
-        )
-        .catch(err => console.log(err));
-};
-
-  // Deletes a box from the database with a given id, then reloads box
-  // deleteDonut = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
-}
 
 export default App;

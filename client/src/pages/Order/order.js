@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { donutChoice, donutItem } from "../../components/donutChoice";
-
+import API from "../../utils/API";
 
 class Order extends Component {
     state = {
@@ -13,9 +13,9 @@ class Order extends Component {
         this.loadDonuts();
     }
 
-    loadDonut = () => {
+    loadDonuts = () => {
         //API FOR GET DONUT
-        API.getDonut()
+        API.getDonuts()
             .then(res =>
                 this.setState({ donuts: res.data, name:"" })
             )
