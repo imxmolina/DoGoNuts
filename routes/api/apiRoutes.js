@@ -18,6 +18,9 @@ router.route("/box/:id")
   .put(boxController.update)
   .get(donutController.findAll)
 
+router.route("/")
+  .get(donutController.findAll)
+
 module.exports = router;
 
 
