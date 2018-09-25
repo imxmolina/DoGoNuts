@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import API from "../../utils/API";
+import API from "../src/utils/API";
 
 class App extends Component {
   render() {
@@ -24,19 +24,19 @@ class App extends Component {
 
   // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
-    this.loadBoxes();
+    this.loadDonuts();
   }
 
-  // Loads all books  and sets them to this.state.books
+  // Loads all boxes
   loadBoxes = () => {
-    API.getBoxes()
+    API.getBox()
       .then(res =>
         this.setState({ donuts: res.data })
       )
       .catch(err => console.log(err));
   };
 
-  loadDonut = () => {
+  loadDonuts = () => {
     //API FOR GET DONUT
     API.getDonut()
         .then(res =>
@@ -45,7 +45,7 @@ class App extends Component {
         .catch(err => console.log(err));
 };
 
-  // Deletes a book from the database with a given id, then reloads books from the db
+  // Deletes a box from the database with a given id, then reloads box
   // deleteDonut = id => {
   //   API.deleteBook(id)
   //     .then(res => this.loadBooks())

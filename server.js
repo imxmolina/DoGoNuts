@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const routes = require("./routes/api");
 const app = express();
 const PORT = process.env.PORT || 3001;
+const donutController = require("./controllers/donutControllers");
+
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +24,8 @@ mongoose.connect(
   //   useMongoClient: true
   // }
 );
+
+app.get(donutController.findAll) 
 
 // Start the API server
 app.listen(PORT, function() {
