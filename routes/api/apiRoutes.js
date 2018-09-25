@@ -4,8 +4,10 @@ const boxController = require("../../controllers/boxControllers");
 const donutController = require("../../controllers/donutControllers");
 const userController = require("../../controllers/userControllers");
 
+router.route("/api/donuts")
+  .get(donutController.findAll);
 // Route for selecting either an existing box or create a new box
-router.route("/box")
+router.route("/api/box")
   .get(boxController.findAll)
   .post(boxController.create)
   .put(boxController.update)
@@ -13,13 +15,11 @@ router.route("/box")
   .get(userController.findById)
 
 // Route for selected box to view orders inside, add order
-router.route("/box/:id")  
+router.route("/api/box/:id")  
   .get(boxController.findById)
   .put(boxController.update)
   .get(donutController.findAll)
 
-router.route("/")
-  .get(donutController.findAll)
 
 module.exports = router;
 

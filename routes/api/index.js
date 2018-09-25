@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const donutRoutes = require("./apiRoutes.js");
+const donutRoutes = require("./apiRoutes");
 
 // Donut routes
 router.use("/", donutRoutes);
