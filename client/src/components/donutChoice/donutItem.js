@@ -1,7 +1,7 @@
 import React from "react";
 
 export const DonutItem = props => (
-    <li className="list-group-item">
+    <li onClick={() => props.handleClick(props.donut_id)} className="list-group-item">
         {props.children}
     </li>
 );
