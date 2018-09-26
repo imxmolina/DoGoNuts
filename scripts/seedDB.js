@@ -64,8 +64,8 @@ const donutSeed = [
     },
     {
         id: 12,
-        name: "Sprinkle",
-        image: "https://www.krispykreme.com/getattachment/fcd5370c-1aa5-464a-8b24-3b82df06837a/Strawberry-Iced-with-Sprinkles.aspx?width=310&height=310&mode=max&quality=60&format=jpg"
+        name: "Apple Fritter",
+        image: "https://www.krispykreme.com/getattachment/e84619be-bce0-4239-8352-2117e1b66ad0/Apple-Fritter.aspx?width=310&height=310&mode=max&quality=60&format=jpg"
     },
     {
         id: 13,

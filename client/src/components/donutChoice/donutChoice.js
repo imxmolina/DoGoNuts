@@ -1,6 +1,6 @@
 import React from "react";
 
-export const donutChoice = ({ children }) => {
+export const DonutChoice = ({ children }) => {
     return (
         <div className="list-overflow-container">
         <ul clasName="list-group">
