@@ -1,4 +1,5 @@
 const db = require("../models");
+var cheerio = require("cheerio");
 
 module.exports = {
   findAll: function(req, res) {
@@ -21,7 +22,7 @@ module.exports = {
   },
   update: function(req, res) {
     db.Box
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: "5bac50a33581942e3d5e08a0" }, { $push: { donutcount: req.body.id }})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
