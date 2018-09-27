@@ -4,10 +4,12 @@ import Order from "./pages/Order";
 import orderList from "./pages/OrderList";
 import errorPage from "./pages/errorPage";
 import { Switch, Route } from "react-router";
+import Nav from "./components/Nav";
 
 const App = () => (
   <Router>
     <div>
+      <Nav/>
       <Switch>
         <Route exact path="/" component={ Order }/>
         <Route exact path="/orderlist" component={ orderList }/>
@@ -16,7 +18,6 @@ const App = () => (
     </div>
   </Router>
 )
-
 
 
 export default App;

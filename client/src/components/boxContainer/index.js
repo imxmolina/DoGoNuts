@@ -1,1 +1,2 @@
-export { default } from "./boxContainer";
+export * from "./boxContainer";
+export * from "./boxItems";
