@@ -15,6 +15,9 @@ export default {
   },
   getDonuts: function(id) {
     return axios.get("/api/donuts")
+  },
+  getOrders: function(id) {
+    return axios.get("/api/orders")
   }
 
 };
