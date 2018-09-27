@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
-import BoxItems from "../../components/boxItems";
-import BoxContainer from "../../components/boxContainer";
+import {BoxItems,BoxContainer} from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
 
@@ -31,16 +30,15 @@ class Order extends Component {
         console.log('test');
         API.getBox({
             where: {
-            _id: "5bac50a33581942e3d5e08a0"
-        }
-        }).then(res=>
+                _id: "5bac50a33581942e3d5e08a0"
+            }
+        }).then(res =>
             this.setState({
                 box: res.data
             })
-            ).catch(err => console.log(err))
+        ).catch(err => console.log(err))
     };
 
-    
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         API.populateBox(donut).then(res => this.getBox());
@@ -59,10 +57,10 @@ class Order extends Component {
                                 {this.state.donuts.map(Donut => (
                                     <DonutItem key={Donut._id} handleClick={this.handleClick} donut_id={Donut._id}>
                                         <div>
-                                            <li>
+                                            <p>
                                                 <img src={Donut.image} alt={Donut.name} width="50" height="50" />
                                                 {Donut.name}
-                                            </li>
+                                            </p>
                                         </div>
                                     </DonutItem>
                                 ))}
@@ -73,23 +71,22 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
-                        {/* Box Container */}
-                        <BoxContainer>
-                            {/* <BoxItems
-                                    // removeDonuts={this.removeDonuts}
-                                    // id={donuts.id}
-                                    // key={donuts.id}
-                                    // name={donuts.name}
-                                    // image={donuts.image}
-                                /> */}
-                            {this.state.box.length ? (
-                                // <BoxItems />
-                                <h1>You got an order!</h1>
-                            ) : (
-                                    //placeholder image
-                                    <h1>Order Up!</h1>
-                                )}
-                        </BoxContainer>
+                        {this.state.box.length ? (
+                            <BoxContainer>
+                                {this.state.box.map(Picked => (
+                                    <BoxItems
+                                        removeDonuts={this.removeDonuts}
+                                        id={Picked.id}
+                                        key={Picked.id}
+                                    >
+                                    </BoxItems>
+                                ))}
+                            </BoxContainer>
+                        ) : (
+                            <BoxContainer>
+                                <h1>Order Up!</h1>
+                            </BoxContainer>
+                            )}
                     </Col>
                 </Row>
             </Container>
