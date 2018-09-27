@@ -12,7 +12,7 @@ class Order extends Component {
         id: "",
         image: "",
         users: [],
-        box: []
+        box: ""
     };
 
     componentDidMount() {
@@ -27,10 +27,24 @@ class Order extends Component {
             )
             .catch(err => console.log(err));
     };
+    getBox = () => {
+        console.log('test');
+        API.getBox({
+            where: {
+            _id: "5bac50a33581942e3d5e08a0"
+        }
+        }).then(res=>
+            this.setState({
+                box: res.data
+            })
+            ).catch(err => console.log(err))
+    };
 
-    handleClick = (id) => {
-        console.log(id)
-    }
+    
+    handleClick = id => {
+        const donut = this.state.donuts.find(donut => donut._id === id);
+        API.populateBox(donut).then(res => this.getBox());
+    };
 
     render() {
         console.log(this.state.donuts);

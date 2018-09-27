@@ -23,6 +23,7 @@
     "axios": "^0.18.0",
     "babel": "^6.23.0",
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.4",
     "if-env": "^1.0.4",
     "mongoose": "^5.2.17"

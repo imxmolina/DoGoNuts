@@ -111,9 +111,20 @@ const donutSeed = [
     
 ];
 
-db.Donut
+const boxSeed = [
+    {
+        id: 1,
+        boxname: "box10",
+        donutcount: [
+            
+        ]
+
+    }
+]
+
+db.Box
 .remove({})
-.then(() => db.Donut.collection.insertMany(donutSeed))
+.then(() => db.Box.collection.insertMany(boxSeed))
 .then(data => {
     console.log(data.result.n + "donuts inserted");
     process.exit(0);
