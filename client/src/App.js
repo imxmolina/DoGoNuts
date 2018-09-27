@@ -6,6 +6,7 @@ import errorPage from "./pages/errorPage";
 import { Switch, Route } from "react-router";
 import Nav from "./components/Nav";
 
+
 const App = () => (
   <Router>
     <div>

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
-import {BoxItems,BoxContainer} from "../../components/boxContainer";
+import { BoxItems, BoxContainer } from "../../components/boxContainer";
+import { ListBtn } from "../../components/ListBtn";
 import { Col, Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
+import {Link} from "react-router-dom";
 
 class Order extends Component {
     state = {
@@ -82,12 +84,18 @@ class Order extends Component {
                                     </BoxItems>
                                 ))}
                             </BoxContainer>
+
                         ) : (
-                            <BoxContainer>
-                                <h1>Order Up!</h1>
-                            </BoxContainer>
+                                <BoxContainer>
+                                    <h1>Order Up!</h1>
+                                </BoxContainer>
                             )}
+                        <Link to="/orderlist">
+                            <ListBtn />
+                        </Link>
+
                     </Col>
+
                 </Row>
             </Container>
         )
@@ -95,5 +103,6 @@ class Order extends Component {
 }
 
 export default Order;
+
 
 
