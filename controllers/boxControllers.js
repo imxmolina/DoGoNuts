@@ -22,7 +22,7 @@ module.exports = {
   },
   update: function(req, res) {
     db.Box
-      .findOneAndUpdate({ _id: "5bad9eb97dd71745d285f39b" }, { $push: { donutcount: req.body.id }})
+      .findOneAndUpdate({ _id: req.params.id }, { $push: { donutcount: req.body._id }})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
