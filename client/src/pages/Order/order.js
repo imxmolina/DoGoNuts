@@ -15,7 +15,7 @@ class Order extends Component {
         image: "",
         users: [],
         box: {},
-        donutcount: []
+        donutcount: [],
     };
 
     componentDidMount() {
@@ -31,12 +31,11 @@ class Order extends Component {
             )
             .catch(err => console.log(err));
     };
-    getBox = () => {
-        console.log('test');
+    getBox = (id) => {
+        console.log(id);
         API.getBox({
-            where: {
-                _id: "5bac50a33581942e3d5e08a0"
-            }
+                _id: id
+            
         }).then(res =>
             this.setState({
                 box: res.data[0], donutcount: res.data[0]
@@ -61,7 +60,9 @@ class Order extends Component {
 
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
-        API.populateBox(donut).then(res => this.getBox());
+        const boxId = this.state.box._id
+
+        API.populateBox(boxId,donut).then(res => this.getBox(boxId));
     };
 
     render() {
