@@ -1,0 +1,17 @@
+input {
+  margin: 0;
+}
+#create-box-wrapper {
+  margin: auto;
+  width: 80%;
+}
+#create-box-input {
+  border-radius: 2px;
+  margin: 20px 20px 20px 140px;
+  width: 40%;
+}
+#create-box-btn {
+  border-radius: 2px;
+  margin: 0;
+  width: 20%;
+}
