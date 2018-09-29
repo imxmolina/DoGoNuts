@@ -40,7 +40,7 @@ class Order extends Component {
             this.setState({
                 box: res.data[0], donutcount: res.data[0]
             })
-        ).catch(err => console.log("returningnerror", err))
+        ).catch(err => console.log("returning error", err))
     };
 
     renderDonutCount() {
@@ -51,9 +51,8 @@ class Order extends Component {
         } else {
             return this.state.donutcount.donutcount.map(Picked => (
                 <BoxItems key={Picked}>
-                    <p>{Picked}</p>
+                    <img className="order" src={this.state.donuts.find(x => x._id === Picked).image} />
                 </BoxItems>
-
             ))
         }
     }

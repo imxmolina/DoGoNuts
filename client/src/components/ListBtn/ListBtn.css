@@ -1,9 +1,6 @@
 button {
   text-align: center;
   margin-left: 22%;
-  margin-top: 15px;
+  margin-top: 5%;
   width: 500px;
-}
-#list-btn {
-  border-radius: 2px;
 }
