@@ -44,7 +44,9 @@ class Order extends Component {
     };
 
     renderDonutCount() {
+
         if (this.state.donutcount.donutcount == undefined) {
+
             return []
         } else {
             return this.state.donutcount.donutcount.map(Picked => (
@@ -55,8 +57,6 @@ class Order extends Component {
             ))
         }
     }
-
-
 
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
@@ -107,6 +107,3 @@ class Order extends Component {
 }
 
 export default Order;
-
-
-
