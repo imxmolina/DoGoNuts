@@ -14,7 +14,8 @@ export default {
     return axios.post("/api/box", boxData);
   },
   populateBox: function(id, donutData) {
-    return axios.put("/api/box", {id}, donutData);
+    console.log(id);
+    return axios.put("/api/box/" + id, donutData);
   },
   getDonuts: function(id) {
     return axios.get("/api/donuts")
