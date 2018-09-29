@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
+import { ListBtn } from "../../components/ListBtn";
+import {Link} from "react-router-dom";
 import API from "../../utils/API";
 
 class Order extends Component {
@@ -36,20 +38,22 @@ class Order extends Component {
             }
         }).then(res =>
             this.setState({
-                box: res.data[0], donutcount:res.data[0] 
+                box: res.data[0], donutcount: res.data[0]
             })
-        ).catch(err => console.log("returningnerror",err))
+        ).catch(err => console.log("returningnerror", err))
     };
 
     renderDonutCount() {
-        if(this.state.donutcount.donutcount === undefined) {
+
+        if (this.state.donutcount.donutcount == undefined) {
+
             return []
         } else {
             return this.state.donutcount.donutcount.map(Picked => (
                 <BoxItems key={Picked}>
-                <p>{Picked}</p>
+                    <p>{Picked}</p>
                 </BoxItems>
-                
+
             ))
         }
     }
@@ -87,12 +91,14 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
-                            <BoxContainer>
-                            
+                        <BoxContainer>
+
                             {this.renderDonutCount()}
-                                
-                            </BoxContainer>
-                       
+
+                        </BoxContainer>
+                        <Link to="/orderlist">
+                            <ListBtn />
+                        </Link>
                     </Col>
                 </Row>
             </Container>
