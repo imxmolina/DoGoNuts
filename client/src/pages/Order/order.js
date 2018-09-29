@@ -61,7 +61,6 @@ class Order extends Component {
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         const boxId = this.state.box._id
-
         API.populateBox(boxId,donut).then(res => this.getBox(boxId));
     };
 
