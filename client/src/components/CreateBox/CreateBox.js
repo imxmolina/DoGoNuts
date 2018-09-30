@@ -2,6 +2,7 @@ import React from "react";
 import "./CreateBox.css";
 
 export const CreateBox = ({ children }) => {
+  console.log(children);
   return (
     <div>
       <div id="create-box-wrapper">
