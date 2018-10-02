@@ -42,13 +42,14 @@ class Order extends Component {
         .then(res =>
             this.setState({ boxes: res.data })
             )
+            console.log(this.state.boxes)
             .catch(err => console.log(err));
     };
 
     getBox = (id) => {
         console.log("Id of this.getBox(id):" + id);
         API.getBox({
-            _id: id
+            _id: this.boxes[0]
         }).then(res =>
             this.setState({
                 box: {}, donutcount: []
