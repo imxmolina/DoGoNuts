@@ -2,7 +2,7 @@ import React from "react";
 import "./SelectBox.css";
 
 export const SelectBox = props => {
-  console.log("SelectBox Props: " + props);
+  // console.log("SelectBox Props: " + props);
   return (
     <div>
       <div id="select-box-wrapper">

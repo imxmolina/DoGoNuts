@@ -4,7 +4,7 @@ import "./boxContainer.css";
 export const BoxContainer = ({children}) => {
 
     return (
-        <div className="boxContainer">{children}</div>
+        <div className="boxContainer" onChange={this.renderDonutCount}>{children}</div>
     );   
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import "./CreateBox.css";
 
 export const CreateBox = props => {
-  console.log("CreateBox props: " + props.handleCreateBox);
+  // console.log("CreateBox props: " + props);
   return (
     <div>
       <div id="create-box-wrapper">

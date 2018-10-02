@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // Gets the box with the given id
   getBox: function(id) {
-    return axios.get("/api/box", {id});
+    return axios.get("/api/box", id);
   },
   // Deletes the box with the given id
   deleteBox: function(id) {
@@ -19,7 +19,6 @@ export default {
   },
   // Updates box in database with an additional donut and it's data
   populateBox: function(id, donutData) {
-    console.log(id);
     return axios.put("/api/box/" + id, donutData);
   },
   // Gets all donuts data in the database
