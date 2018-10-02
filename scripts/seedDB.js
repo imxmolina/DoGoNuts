@@ -113,12 +113,8 @@ const donutSeed = [
 
 const boxSeed = [
     {
-        id: 1,
         boxname: "box10",
-        donutcount: [
-            
-        ]
-
+        donutcount: []
     }
 ]
 

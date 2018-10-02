@@ -4,7 +4,8 @@ import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { ListBtn } from "../../components/ListBtn";
 import { CreateBox } from "../../components/CreateBox";
-import {Link} from "react-router-dom";
+import { SelectBox } from "../../components/SelectBox";
+import { Link } from "react-router-dom";
 import API from "../../utils/API";
 
 class Order extends Component {
@@ -14,31 +15,43 @@ class Order extends Component {
         id: "",
         image: "",
         users: [],
+        boxes: [],
         box: {},
+        boxname: "",
         donutcount: [],
     };
 
     componentDidMount() {
         this.loadDonuts();
-        this.getBox();
+        this.loadBoxes();
+        // this.getBox(this.id);
     }
 
     loadDonuts = () => {
         //API FOR GET DONUT
         API.getDonuts()
             .then(res =>
-                this.setState({ donuts: res.data, name: "", id: "" })
+                this.setState({ donuts: res.data, name: "" })
             )
             .catch(err => console.log(err));
     };
+
+    loadBoxes = () => {
+        //API to get all boxes
+        API.getAllBoxes()
+        .then(res =>
+            this.setState({ boxes: res.data })
+            )
+            .catch(err => console.log(err));
+    };
+
     getBox = (id) => {
-        console.log(id);
+        console.log("Id of this.getBox(id):" + id);
         API.getBox({
-                _id: id
-            
+            _id: id
         }).then(res =>
             this.setState({
-                box: res.data[0], donutcount: res.data[0]
+                box: {}, donutcount: []
             })
         ).catch(err => console.log("returningnerror", err))
     };
@@ -61,12 +74,28 @@ class Order extends Component {
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         const boxId = this.state.box._id
-        API.populateBox(boxId,donut).then(res => this.getBox(boxId));
+        API.populateBox(boxId, donut).then(res => this.getBox(boxId));
+    };
+
+    handleCreateBox = name => {
+        const boxData = {boxname: name, donutcount: []}
+        API.saveBox(boxData).then(res =>
+            API.getBox(res.data._id)
+            .then(res =>
+                this.setState({
+                    box: res.data,
+                    boxname: res.data.boxname,
+                    id: res.data._id,
+                    donutcount: []
+                })
+            ).catch(err => console.log("returningnerror", err))
+        )
+        this.componentDidMount();
     };
 
     render() {
-        console.log(this.state.donuts);
-        console.log(this.state.donutcount.donutcount);
+        console.log("This.state.donuts: " + this.state.donuts);
+        console.log("This.state.donutcount.donutcount: " + this.state.donutcount.donutcount);
 
         return (
             <Container fluid>
@@ -92,7 +121,8 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
-                        <CreateBox/>
+                        <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
+                        <SelectBox />
                         <BoxContainer>
 
                             {this.renderDonutCount()}
