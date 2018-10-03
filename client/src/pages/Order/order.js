@@ -59,7 +59,7 @@ class Order extends Component {
         }
     }
 
-    
+
     calculateOrder(){
         if(this.state.donutcount.donutcount === undefined) {
             return <p>no donuts</p>
@@ -143,12 +143,12 @@ class Order extends Component {
 
                         </BoxContainer>
 
-                        
-                        <BoxContent>
+                            <BoxContent>
+                      
+                               {this.calculateOrder()   
                                 
-                                {this.calculateOrder()}
-                               
                             </BoxContent>
+                                
                         <Link to="/orderlist">
                             <ListBtn />
                         </Link>
