@@ -1,10 +1,11 @@
+// eslint-disable-next-line
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { ListBtn } from "../../components/ListBtn";
 import { CreateBox } from "../../components/CreateBox";
-import { SelectBox } from "../../components/SelectBox";
+import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 
@@ -13,17 +14,17 @@ class Order extends Component {
         donuts: [],
         name: "",
         donutId: "",
-        boxId: "",
         image: "",
-        boxes: [],
+        boxId: [],
         box: [],
+        boxes: [],
         boxname: "",
         donutcount: [],
     };
 
     componentDidMount() {
         this.loadDonuts();
-        this.loadBoxes();        
+        this.loadBoxes();      
     }
 
     loadDonuts = () => {
@@ -39,8 +40,7 @@ class Order extends Component {
         //API to get all boxes
         API.getAllBoxes()
         .then(res => {
-
-            this.setState({ boxes: res.data, box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
+            this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
         }
             )
             .catch(err => console.log(err)
@@ -48,18 +48,20 @@ class Order extends Component {
     };
 
     getBox = (boxId) => {
+        console.log();
         API.getBox({
             
             _id: boxId
         }).then(res => {
             this.setState({
-                box: res.data , donutcount: res.data.donutcount, boxId: res.data._id
+                box: res.data.box, donutcount: res.data.donutcount
             })
         }
         ).catch(err => console.log("returningnerror", err))
     };
 
     renderDonutCount() {
+        // eslint-disable-next-line
         if (this.state.box.donutcount == undefined) {
             return []
         } else {
@@ -74,7 +76,7 @@ class Order extends Component {
     handleClick = donutId => {
         const donut = this.state.donuts.find(donut => donut._id === donutId);
         const boxId = this.state.boxId
-        API.populateBox(boxId, donut).then(res => this.getBox(res.data._id));
+        API.populateBox(boxId, donut).then(res => this.loadBoxes());
     };
 
     handleCreateBox = name => {
@@ -122,9 +124,21 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
+                        {this.state.boxes.length ? (
                         <SelectBox>
-                            {this.state.boxes}
+                            {this.state.boxes.map(Box => (
+                                <BoxChoice key={Box._id} handleClick={this.selectBox} box_id={Box._id}>
+                                    <div>
+                                        <p name={Box.name}>
+
+                                        </p>
+                                    </div>
+                                </BoxChoice>
+                            ))}
                         </SelectBox>
+                        ) : (
+                            <h3>No Boxes</h3>
+                        )}
                         <BoxContainer>
 
                             {this.renderDonutCount()}

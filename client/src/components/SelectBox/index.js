@@ -1,1 +1,1 @@
-export {SelectBox} from "./SelectBox";
+export {SelectBox, BoxChoice} from "./SelectBox";

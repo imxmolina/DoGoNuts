@@ -1,5 +1,5 @@
 const db = require("../models");
-var cheerio = require("cheerio");
+
 
 module.exports = {
   findAll: function(req, res) {

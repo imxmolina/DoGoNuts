@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes/api");
 const app = express();
-const colors = require('colors');
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests

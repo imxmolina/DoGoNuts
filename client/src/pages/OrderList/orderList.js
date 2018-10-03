@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
 
-class orderList extends Component {
-    state = {
-        donuts: {},
-    };
+// class orderList extends Component {
+//     state = {
+//         donuts: {},
+//     };
 
-}
+// }
 
-export default orderList;
+// export default orderList;

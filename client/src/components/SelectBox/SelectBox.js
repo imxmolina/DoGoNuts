@@ -1,13 +1,15 @@
 import React from "react";
 import "./SelectBox.css";
 
-export const SelectBox = props => {
+export const SelectBox = ({ children }) => {
 
   return (
-    <div className="dropdown">
-      <ul className="dropdown-item">
-        {props}
+    <div className="list-overflow-container menu">
+      <ul className="list-group-item">
+        {children}
       </ul>
+
     </div>
+
   )
 };
