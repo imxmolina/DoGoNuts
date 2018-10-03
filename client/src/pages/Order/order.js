@@ -12,11 +12,11 @@ class Order extends Component {
     state = {
         donuts: [],
         name: "",
-        id: "",
+        donutId: "",
+        boxId: "",
         image: "",
-        users: [],
         boxes: [],
-        box: {},
+        box: [],
         boxname: "",
         donutcount: [],
     };
@@ -33,50 +33,48 @@ class Order extends Component {
                 this.setState({ donuts: res.data, name: "" })
             )
             .catch(err => console.log(err));
-            // this.loadBoxes();
     };
 
     loadBoxes = () => {
         //API to get all boxes
         API.getAllBoxes()
-        .then(res =>
-            this.setState({ boxes: res.data, box: res.data[0], id: res.data[0]._id, donutcount: res.data[0].donutcount })
+        .then(res => {
+
+            this.setState({ boxes: res.data, box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
+        }
             )
             .catch(err => console.log(err)
             );
     };
 
-    getBox = (id) => {
+    getBox = (boxId) => {
         API.getBox({
-            _id: id
-        }).then(res =>
+            
+            _id: boxId
+        }).then(res => {
             this.setState({
-                box: res.data[res.data.length-1], donutcount: res.data[res.data.length-1].donutcount, id: res.data[res.data.length-1]._id
+                box: res.data , donutcount: res.data.donutcount, boxId: res.data._id
             })
+        }
         ).catch(err => console.log("returningnerror", err))
     };
 
     renderDonutCount() {
-
         if (this.state.box.donutcount == undefined) {
-
             return []
         } else {
             return this.state.box.donutcount.map(Picked => (
                 <BoxItems key={Picked}>
                     <p>{Picked}</p>
                 </BoxItems>
-
             ))
         }
     }
 
-    handleClick = id => {
-        console.log(this.state.box);
-        const donut = this.state.donuts.find(donut => donut._id === id);
-        const boxId = this.state.box._id
-        console.log(boxId);
-        API.populateBox(boxId, donut).then(res => this.getBox(boxId));
+    handleClick = donutId => {
+        const donut = this.state.donuts.find(donut => donut._id === donutId);
+        const boxId = this.state.boxId
+        API.populateBox(boxId, donut).then(res => this.getBox(res.data._id));
     };
 
     handleCreateBox = name => {
@@ -87,11 +85,12 @@ class Order extends Component {
                 this.setState({
                     box: res.data[res.data.length - 1],
                     boxname: res.data[res.data.length - 1].boxname,
-                    id: res.data[res.data.length - 1]._id,
+                    boxId: res.data[res.data.length - 1]._id,
                     donutcount: []
                 })
             ).catch(err => console.log("returningnerror", err))
         )
+        // this.renderDonutCount();
     };
 
     render() {
@@ -123,7 +122,9 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
-                        <SelectBox />
+                        <SelectBox>
+                            {this.state.boxes}
+                        </SelectBox>
                         <BoxContainer>
 
                             {this.renderDonutCount()}

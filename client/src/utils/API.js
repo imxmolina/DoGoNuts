@@ -3,7 +3,9 @@ import axios from "axios";
 export default {
   // Gets the box with the given id
   getBox: function(id) {
-    return axios.get("/api/box", id);
+    console.log("GET BOX")
+    console.log(id);
+    return axios.get("/api/box/" + id._id);
   },
   // Deletes the box with the given id
   deleteBox: function(id) {

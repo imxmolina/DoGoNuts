@@ -129,3 +129,16 @@ db.Box
     console.error(err);
     process.exit(1);
 });
+
+db.Donut
+.remove({})
+.then(() => db.Donut.collection.insertMany(donutSeed))
+.then(data => {
+    console.log(data.result.n + "donuts inserted");
+    process.exit(0);
+})
+.catch(err => {
+    console.error(err);
+    process.exit(1);
+});
+
