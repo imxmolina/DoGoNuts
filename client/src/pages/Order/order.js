@@ -1,9 +1,11 @@
+//ONE TO BE SENT
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { ListBtn } from "../../components/ListBtn";
 import { CreateBox } from "../../components/CreateBox";
+import { BoxContent, OrderedItem} from "../../components/BoxContentList";
 import {Link} from "react-router-dom";
 import API from "../../utils/API";
 
@@ -99,6 +101,7 @@ class Order extends Component {
    
     }
 
+
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         const boxId = this.state.box._id
@@ -140,11 +143,12 @@ class Order extends Component {
 
                         </BoxContainer>
 
- <BoxContent>
+                            <BoxContent>
+                      
+                               {this.calculateOrder()   
                                 
-                                {this.calculateOrder()}
-                               
                             </BoxContent>
+                                
                         <Link to="/orderlist">
                             <ListBtn />
                         </Link>
