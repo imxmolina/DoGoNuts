@@ -1,9 +1,11 @@
+//ONE TO BE SENT
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { ListBtn } from "../../components/ListBtn";
 import { CreateBox } from "../../components/CreateBox";
+import { BoxContent, OrderedItem} from "../../components/BoxContentList";
 import {Link} from "react-router-dom";
 import API from "../../utils/API";
 
@@ -57,6 +59,49 @@ class Order extends Component {
         }
     }
 
+    
+    calculateOrder(){
+        if(this.state.donutcount.donutcount === undefined) {
+            return <p>no donuts</p>
+        } else {
+            // Logic to manipulate data
+            let count = this.state.donutcount.donutcount.reduce((res, val) => {
+                if (res[val]) {
+                    res[val]++;
+                } else {
+                    res[val] = 1;
+                }
+                return res;
+            }, {});
+            
+            let output = Object.entries(count)
+                .sort((a, b) => b[1] - a[1]) //2)
+                .map(v => v[0]); //3)
+            
+            let countArray = Object.entries(count)
+                .sort((a, b) => b[1] - a[1])
+                .map(v => v[1]);
+
+        let donutArray = []
+        for (var i = 0; i < output.length; i++){
+            var donutCounts = {name: output[i], count: countArray[i]}
+            donutArray.push(donutCounts)
+        }
+            // return data 
+            
+            return donutArray.map(Picked => (
+                <OrderedItem key={Picked}>
+                <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
+                </OrderedItem> 
+                  
+            ))
+
+
+        }
+   
+    }
+
+
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         const boxId = this.state.box._id
@@ -97,6 +142,13 @@ class Order extends Component {
                             {this.renderDonutCount()}
 
                         </BoxContainer>
+
+                        
+                        <BoxContent>
+                                
+                                {this.calculateOrder()}
+                               
+                            </BoxContent>
                         <Link to="/orderlist">
                             <ListBtn />
                         </Link>
