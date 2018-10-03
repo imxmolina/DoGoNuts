@@ -145,7 +145,7 @@ class Order extends Component {
 
                             <BoxContent>
                       
-                               {this.calculateOrder()   
+                               {this.calculateOrder()}   
                                 
                             </BoxContent>
                                 
