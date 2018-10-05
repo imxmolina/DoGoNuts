@@ -8,9 +8,6 @@ import Nav from "./components/Nav";
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 
-
-
-
 const App = () => (
   <Router>
     <div>
@@ -30,6 +27,5 @@ const App = () => (
     </div>
   </Router>
 )
-
 
 export default App;

@@ -5,9 +5,10 @@ import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { CreateBox } from "../../components/CreateBox";
 import { SelectBox, BoxChoice } from "../../components/SelectBox";
-import { Link } from "react-router-dom";
+import { BoxContent, OrderedItem} from "../../components/BoxContentList";
+// import {Link} from "react-router-dom";
 import API from "../../utils/API";
-import axios from 'axios';
+// import axios from 'axios';
 
 
 class Order extends Component {
@@ -33,13 +34,14 @@ class Order extends Component {
     componentDidMount() {
         this.loadDonuts();
         this.loadBoxes();
+        console.log(this.state.donutcount);
     }
 
     loadDonuts = () => {
         //API FOR GET DONUT
         API.getDonuts()
             .then(res =>
-                this.setState({ donuts: res.data, name: "" })
+                this.setState({ donuts: res.data, name: "", donutId: "" })
             )
             .catch(err => console.log(err));
     };
@@ -74,10 +76,52 @@ class Order extends Component {
         } else {
             return this.state.box.donutcount.map(Picked => (
                 <BoxItems key={Picked}>
-                    <p>{Picked}</p>
+                    <img className="order" src={this.state.donuts.find(x => x._id === Picked).image} />
                 </BoxItems>
             ))
         }
+    }
+
+
+    calculateOrder(){
+        if(this.state.donutcount === undefined) {
+            return <p>no donuts</p>
+        } else {
+            // Logic to manipulate data
+            let count = this.state.donutcount.reduce((res, val) => {
+                if (res[val]) {
+                    res[val]++;
+                } else {
+                    res[val] = 1;
+                }
+                return res;
+            }, {});
+            
+            let output = Object.entries(count)
+                .sort((a, b) => b[1] - a[1]) //2)
+                .map(v => v[0]); //3)
+            
+            let countArray = Object.entries(count)
+                .sort((a, b) => b[1] - a[1])
+                .map(v => v[1]);
+
+        let donutArray = []
+        for (var i = 0; i < output.length; i++){
+            var donutCounts = {name: output[i], count: countArray[i]}
+            donutArray.push(donutCounts)
+        }
+            // return data 
+            
+            return donutArray.map(Picked => (
+                <OrderedItem key={Picked}>
+                <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
+                </OrderedItem> 
+                  
+            ))
+
+
+        }
+   
     }
 
     handleClick = donutId => {
@@ -102,8 +146,8 @@ class Order extends Component {
     };
 
     render() {
-        // console.log("This.state.donuts: " + this.state.donuts);
-        // console.log("This.state.donutcount.donutcount: " + this.state.donutcount.donutcount);
+        console.log("This.state.donuts: " + this.state.donuts);
+        console.log("This.state.donutcount: " + this.state.donutcount);
 
         return (
             <Container fluid>
@@ -117,7 +161,7 @@ class Order extends Component {
                                     <DonutItem key={Donut._id} handleClick={this.handleClick} donut_id={Donut._id} donut_image={Donut.image}>
                                         <div>
                                             <p>
-                                                <img src={Donut.image} alt={Donut.name} width="50" height="50" />
+                                                <img src={Donut.image} alt="" width="50" height="50" />
                                                 {Donut.name}
                                             </p>
                                         </div>
@@ -151,6 +195,16 @@ class Order extends Component {
                             {this.renderDonutCount()}
 
                         </BoxContainer>
+
+                            <BoxContent>
+                      
+                               {this.calculateOrder()}   
+                                
+                            </BoxContent>
+                                
+                        {/* <Link to="/orderlist">
+                            <ListBtn />
+                        </Link> */}
                     </Col>
                 </Row>
             </Container>

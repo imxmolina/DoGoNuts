@@ -3,7 +3,7 @@ import "./ListBtn.css";
 
 export const ListBtn = () => (
   <div>
-      <button id="list-btn" className="btn-inline btn-success" type="button">
+      <button>
           Order List
       </button>
   </div>
