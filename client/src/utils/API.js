@@ -9,12 +9,15 @@ export default {
   deleteBox: function(id) {
     return axios.delete("/api/box/" + id);
   },
+  deleteDonut: function(id, donutData) {
+    return axios.delete("/api/box/" + id, {data:{donut:donutData}});
+  },
   // Saves a box to the database
   saveBox: function(boxData) {
     return axios.post("/api/box", boxData);
   },
   populateBox: function(id, donutData) {
-    console.log(id);
+    // console.log(id);
     return axios.put("/api/box/" + id, donutData);
   },
   getDonuts: function(id) {
@@ -23,5 +26,4 @@ export default {
   getOrders: function(id) {
     return axios.get("/api/orders")
   }
-
 };

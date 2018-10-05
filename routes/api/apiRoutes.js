@@ -12,7 +12,7 @@ router.route("/api/box")
   .get(boxController.findAll)
   .post(boxController.create)
   .put(boxController.update)
-  .delete(boxController.remove)
+  // .delete(boxController.remove)
   .get(userController.findById)
 
 // Route for selected box to view orders inside, add order
@@ -20,6 +20,8 @@ router.route("/api/box/:id")
   .get(boxController.findById)
   .put(boxController.update)
   .get(donutController.findAll)
+  .delete(boxController.remove)
+
 
 module.exports = router;
 
