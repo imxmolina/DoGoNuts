@@ -1,1 +1,1 @@
-export * from "./CreateBox";
+export {CreateBox} from "./CreateBox";
