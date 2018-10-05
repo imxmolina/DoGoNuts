@@ -16,7 +16,7 @@ export default {
   getBox: function(id) {
     console.log("GET BOX")
     console.log("GET BOX ID: " + id);
-    return axios.get("/api/box/" + id._id);
+    return axios.get("/api/box/" + id);
   },
   // Updates box in database with an additional donut and it's data : U
   populateBox: function(id, donutData) {
@@ -31,7 +31,9 @@ export default {
   // ===============================================================================================
 
   // Gets all donuts data from the database : R
+  
   getDonuts: function(id) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     return axios.get("/api/donuts")
   },
   // Gets user orders from the database : R

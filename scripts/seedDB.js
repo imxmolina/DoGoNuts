@@ -118,6 +118,13 @@ const boxSeed = [
     }
 ]
 
+const userSeed = [
+    {
+        username: "Tony123",
+        password: "Pa$$w0rd"
+    }
+]
+
 db.Box
 .remove({})
 .then(() => db.Box.collection.insertMany(boxSeed))
@@ -142,3 +149,14 @@ db.Donut
     process.exit(1);
 });
 
+db.User
+.remove({})
+.then(() => db.User.collection.insertMany(userSeed))
+.then(data => {
+    console.log(data.result.n + "user inserted");
+    process.exit(0);
+})
+.catch(err => {
+    console.error(err);
+    process.exit(1);
+});

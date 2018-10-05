@@ -3,11 +3,12 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
-import { ListBtn } from "../../components/ListBtn";
 import { CreateBox } from "../../components/CreateBox";
 import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
+import axios from 'axios';
+
 
 class Order extends Component {
     state = {
@@ -15,16 +16,23 @@ class Order extends Component {
         name: "",
         donutId: "",
         image: "",
-        boxId: [],
+        boxId: "",
         box: [],
         boxes: [],
         boxname: "",
         donutcount: [],
     };
 
+    logout = () => {
+        localStorage.removeItem('jwtToken');
+        window.location.reload();
+    }
+
+
+
     componentDidMount() {
         this.loadDonuts();
-        this.loadBoxes();      
+        this.loadBoxes();
     }
 
     loadDonuts = () => {
@@ -39,22 +47,21 @@ class Order extends Component {
     loadBoxes = () => {
         //API to get all boxes
         API.getAllBoxes()
-        .then(res => {
-            this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
-        }
+            .then(res => {
+                this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
+            }
             )
             .catch(err => console.log(err)
             );
     };
 
     getBox = (boxId) => {
-        console.log();
-        API.getBox({
-            
-            _id: boxId
-        }).then(res => {
+        console.log(boxId);
+        API.getBox(
+            boxId
+        ).then(res => {
             this.setState({
-                box: res.data.box, donutcount: res.data.donutcount
+                box: res.data, donutcount: res.data.donutcount
             })
         }
         ).catch(err => console.log("returningnerror", err))
@@ -76,23 +83,22 @@ class Order extends Component {
     handleClick = donutId => {
         const donut = this.state.donuts.find(donut => donut._id === donutId);
         const boxId = this.state.boxId
-        API.populateBox(boxId, donut).then(res => this.loadBoxes());
+        API.populateBox(boxId, donut).then(res => this.getBox(boxId));
     };
 
     handleCreateBox = name => {
-        const boxData = {boxname: name, donutcount: []}
+        const boxData = { boxname: name, donutcount: [] }
         API.saveBox(boxData).then(res =>
             API.getBox(res.data._id)
-            .then(res =>
-                this.setState({
-                    box: res.data[res.data.length - 1],
-                    boxname: res.data[res.data.length - 1].boxname,
-                    boxId: res.data[res.data.length - 1]._id,
-                    donutcount: []
-                })
-            ).catch(err => console.log("returningnerror", err))
+                .then(res =>
+                    this.setState({
+                        box: res.data,
+                        boxname: res.data.boxname,
+                        boxId: res.data._id,
+                        donutcount: []
+                    })
+                ).catch(err => console.log("returningnerror", err))
         )
-        // this.renderDonutCount();
     };
 
     render() {
@@ -101,6 +107,7 @@ class Order extends Component {
 
         return (
             <Container fluid>
+
                 <Row>
                     <Col size="md-3">
                         <h1>CHOICES</h1>
@@ -125,28 +132,25 @@ class Order extends Component {
                     <Col size="md-9 sm-12">
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                         {this.state.boxes.length ? (
-                        <SelectBox>
-                            {this.state.boxes.map(Box => (
-                                <BoxChoice key={Box._id} handleClick={this.selectBox} box_id={Box._id}>
-                                    <div>
-                                        <p name={Box.name}>
+                            <SelectBox>
+                                {this.state.boxes.map(Box => (
+                                    <BoxChoice key={Box._id} handleClick={this.selectBox} box_id={Box._id}>
+                                        <div>
+                                            <p name={Box.name}>
 
-                                        </p>
-                                    </div>
-                                </BoxChoice>
-                            ))}
-                        </SelectBox>
+                                            </p>
+                                        </div>
+                                    </BoxChoice>
+                                ))}
+                            </SelectBox>
                         ) : (
-                            <h3>No Boxes</h3>
-                        )}
+                                <h3>No Boxes</h3>
+                            )}
                         <BoxContainer>
 
                             {this.renderDonutCount()}
 
                         </BoxContainer>
-                        <Link to="/orderlist">
-                            <ListBtn />
-                        </Link>
                     </Col>
                 </Row>
             </Container>

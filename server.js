@@ -1,27 +1,26 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 const routes = require("./routes/api");
-const app = express();
-const passport = require("passport");
 const PORT = process.env.PORT || 3001;
+const app = express();
+var bodyParser = require("body-parser");
+var auth = require("./routes/api/auth");
 
-// Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// Serve up static assets
-app.use(express.static("client/build"));
-// Add routes, both API and view
-app.use(routes);
+app.use(bodyParser.urlencoded({'extended':'false'}));
 
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/users/' + req.user.username);
-  });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+app.use(routes);
+app.use("/api/auth", auth);
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
