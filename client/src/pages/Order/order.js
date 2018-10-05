@@ -5,13 +5,13 @@ import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { CreateBox } from "../../components/CreateBox";
 import { SelectBox, BoxChoice } from "../../components/SelectBox";
-import { BoxContent, OrderedItem} from "../../components/BoxContentList";
+import { BoxContent, OrderedItem } from "../../components/BoxContentList";
+import { Nav } from "../../components/Nav";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
-// import axios from 'axios';
-
 
 class Order extends Component {
+
     state = {
         donuts: [],
         name: "",
@@ -24,6 +24,7 @@ class Order extends Component {
         donutcount: [],
     };
 
+
     logout = () => {
         localStorage.removeItem('jwtToken');
         window.location.reload();
@@ -33,8 +34,7 @@ class Order extends Component {
 
     componentDidMount() {
         this.loadDonuts();
-        this.loadBoxes();
-        console.log(this.state.donutcount);
+        // this.loadBoxes();
     }
 
     loadDonuts = () => {
@@ -44,6 +44,7 @@ class Order extends Component {
                 this.setState({ donuts: res.data, name: "", donutId: "" })
             )
             .catch(err => console.log(err));
+
     };
 
     loadBoxes = () => {
@@ -83,8 +84,8 @@ class Order extends Component {
     }
 
 
-    calculateOrder(){
-        if(this.state.donutcount === undefined) {
+    calculateOrder() {
+        if (this.state.donutcount === undefined) {
             return <p>no donuts</p>
         } else {
             // Logic to manipulate data
@@ -96,32 +97,32 @@ class Order extends Component {
                 }
                 return res;
             }, {});
-            
+
             let output = Object.entries(count)
                 .sort((a, b) => b[1] - a[1]) //2)
                 .map(v => v[0]); //3)
-            
+
             let countArray = Object.entries(count)
                 .sort((a, b) => b[1] - a[1])
                 .map(v => v[1]);
 
-        let donutArray = []
-        for (var i = 0; i < output.length; i++){
-            var donutCounts = {name: output[i], count: countArray[i]}
-            donutArray.push(donutCounts)
-        }
+            let donutArray = []
+            for (var i = 0; i < output.length; i++) {
+                var donutCounts = { name: output[i], count: countArray[i] }
+                donutArray.push(donutCounts)
+            }
             // return data 
-            
+
             return donutArray.map(Picked => (
                 <OrderedItem key={Picked}>
-                <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
-                </OrderedItem> 
-                  
+                    <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
+                </OrderedItem>
+
             ))
 
 
         }
-   
+
     }
 
     handleClick = donutId => {
@@ -146,12 +147,10 @@ class Order extends Component {
     };
 
     render() {
-        console.log("This.state.donuts: " + this.state.donuts);
-        console.log("This.state.donutcount: " + this.state.donutcount);
 
         return (
             <Container fluid>
-
+                <Nav />
                 <Row>
                     <Col size="md-3">
                         <h1>CHOICES</h1>
@@ -196,12 +195,12 @@ class Order extends Component {
 
                         </BoxContainer>
 
-                            <BoxContent>
-                      
-                               {this.calculateOrder()}   
-                                
-                            </BoxContent>
-                                
+                        <BoxContent>
+
+                            {this.calculateOrder()}
+
+                        </BoxContent>
+
                         {/* <Link to="/orderlist">
                             <ListBtn />
                         </Link> */}

@@ -5,7 +5,7 @@ require('../../config/passport')(passport);
 var express = require('express');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
-var User = require("../../models/user");
+var User = require("../../models/User");
 
 router.post('/register', function(req, res) {
     if (!req.body.username || !req.body.password) {
@@ -24,7 +24,6 @@ router.post('/register', function(req, res) {
       });
     }
   });
-
 
   router.post('/login', function(req, res) {
     User.findOne({

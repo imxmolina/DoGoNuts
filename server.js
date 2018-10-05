@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const routes = require("./routes/api");
+const apiRoutes = require("./routes/api/apiRoutes");
 const PORT = process.env.PORT || 3001;
 const app = express();
 var bodyParser = require("body-parser");
@@ -14,11 +14,11 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-app.use(routes);
+app.use("/api/apiRoutes", apiRoutes);
 app.use("/api/auth", auth);
 
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 
