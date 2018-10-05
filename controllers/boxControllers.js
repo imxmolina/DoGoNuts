@@ -5,7 +5,18 @@ module.exports = {
   findAll: function(req, res) {
     db.Box
       .find(req.query)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        const _id = dbModel[0]._id;
+        console.log("ID", _id)
+        const filteredDonuts = dbModel[0].donutcount.filter(a => a !== null);
+        console.log("FILTERED DO", filteredDonuts);
+        let filteredDbModel = [{
+          donutcount: filteredDonuts,
+          _id
+        }]
+        console.log("Filter",filteredDbModel)
+        res.json(filteredDbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
@@ -27,10 +38,23 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
+    // console.log("Box ID "+req.params.id);
+    // console.log("Donut ID "+req.body.donut._id);
+
     db.Box
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
+      .updateOne(
+        { _id: req.params.id, donutcount:req.body.donut._id},
+        {$set:{"donutcount.$": null}}
+      )
+      .then(dbModel => {
+          res.json(dbModel)
+        }
+      )
       .catch(err => res.status(422).json(err));
   }
 };
+
+//find array, return array
+        //remove the id from the array
+        //update the donut count with new array
+

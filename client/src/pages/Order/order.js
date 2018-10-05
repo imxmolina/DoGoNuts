@@ -33,33 +33,40 @@ class Order extends Component {
             )
             .catch(err => console.log(err));
     };
-    getBox = (id) => {
-        console.log(id);
+    getBox = id => {
+        // console.log(id);
         API.getBox({
                 _id: id
-            
         }).then(res =>
             this.setState({
                 box: res.data[0], donutcount: res.data[0]
             })
         ).catch(err => console.log("returning error", err))
     };
-
     renderDonutCount() {
-
-        if (this.state.donutcount.donutcount == undefined) {
-
+        
+        if (this.state.donutcount.donutcount == undefined ) {
             return []
         } else {
-            return this.state.donutcount.donutcount.map(Picked => (
-                <BoxItems key={Picked}>
-                    <img className="order" src={this.state.donuts.find(x => x._id === Picked).image} />
-                </BoxItems>
+            let boxNumber = Math.ceil(this.state.donutcount.donutcount.length/12);
+            let donutBoxList =[];
+
+            for(let i = 0;i<boxNumber;i++){
+                let donutPart = this.state.donutcount.donutcount.slice((i*12),(i +1)*12);
+                donutBoxList.push(donutPart);
+            }
+
+            return donutBoxList.map(Picked => (
+                    <BoxContainer>
+                        {Picked.map(donutList =>(
+                            <BoxItems key={donutList} removeDonut={this.removeDonut} donut_id={donutList}>
+                                <img className="order" alt="Donut" src={this.state.donuts.find(x => x._id === donutList).image} />
+                            </BoxItems>
+                        ))}
+                    </BoxContainer>
             ))
         }
-    }
-
-
+    };
     calculateOrder(){
         if(this.state.donutcount.donutcount === undefined) {
             return <p>no donuts</p>
@@ -88,30 +95,28 @@ class Order extends Component {
             donutArray.push(donutCounts)
         }
             // return data 
-            
             return donutArray.map(Picked => (
                 <OrderedItem key={Picked}>
-                <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
-                </OrderedItem> 
-                  
+                    <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
+                </OrderedItem>      
             ))
-
-
         }
-   
-    }
-
-
+    };
     handleClick = id => {
         const donut = this.state.donuts.find(donut => donut._id === id);
         const boxId = this.state.box._id
         API.populateBox(boxId,donut).then(res => this.getBox(boxId));
     };
+    removeDonut= id =>{
+        // console.log(id);
+        const donut = this.state.donuts.find(donut => donut._id === id);
+        const boxId = this.state.box._id
+        API.deleteDonut(boxId,donut).then(res => this.getBox(boxId));
+    };
 
+    //Main Render
     render() {
-        console.log(this.state.donuts);
-        console.log(this.state.donutcount.donutcount);
-
+        // console.log(this.state.donuts);
         return (
             <Container fluid>
                 <Row>
@@ -137,15 +142,12 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         <CreateBox/>
-                        <BoxContainer>
 
                             {this.renderDonutCount()}
 
-                        </BoxContainer>
-
                             <BoxContent>
                       
-                               {this.calculateOrder()   
+                               {this.calculateOrder()} 
                                 
                             </BoxContent>
                                 
