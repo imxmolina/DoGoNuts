@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
-import { CreateBox } from "../../components/CreateBox";
-// import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
 // import axios from 'axios';
+// import Slider from "react-slick";
+
 
 class Order extends Component {
     state = {
@@ -30,10 +30,8 @@ class Order extends Component {
 
     componentDidMount() {
         this.loadDonuts();
-        // this.loadBoxes();
-        // console.log(this.props);
         this.getBox(this.props.match.params.id);
-        // console.log(this.state.donutcount);
+        // this.loadBoxes();
     }
 
     loadDonuts = () => {
@@ -44,12 +42,11 @@ class Order extends Component {
             )
             .catch(err => console.log(err));
     };
-
     // loadBoxes = () => {
     //     //API to get all boxes
     //     API.getAllBoxes()
     //         .then(res => 
-                
+
     //             {
     //                 console.log("ALL BOXES   ",res.data);
 
@@ -59,14 +56,12 @@ class Order extends Component {
     //         .catch(err => console.log(err)
     //         );
     // };
-
-    getBox = (boxId) => {
-        // console.log(boxId);
+    getBox = boxId => {
         API.getBox(
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount, boxId:this.props.match.params.id
+                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id
             })
         }
         ).catch(err => console.log("returning error", err))
@@ -74,33 +69,34 @@ class Order extends Component {
 
     renderDonutCount() {
         // eslint-disable-next-line
-        if (this.state.donutcount == undefined ) {
-            return  []
+        if (this.state.donutcount == undefined) {
+            return []
         } else {
-            let boxNumber = Math.ceil(this.state.donutcount.length/12);
-            let donutBoxList =[];
+            let boxNumber = Math.ceil(this.state.donutcount.length / 12);
+            let donutBoxList = [];
 
-            for(let i = 0;i<boxNumber;i++){
-                let donutPart = this.state.donutcount.slice((i*12),(i +1)*12);
+            for (let i = 0; i < boxNumber; i++) {
+                let donutPart = this.state.donutcount.slice((i * 12), (i + 1) * 12);
                 donutBoxList.push(donutPart);
             }
-            console.log("ANDY!!! ",donutBoxList);
+            console.log("ANDY!!! ", donutBoxList);
             return donutBoxList.map(Picked => (
-                <BoxContainer>
-                    {Picked.map(donutList =>(
-                        <BoxItems key={"IWorkSuckers"} removeDonut={this.removeDonut} donut_id={donutList}>
-                            <img className="order" alt="Donut" src={this.state.donuts.find(x => x._id === donutList).image} />
-                        </BoxItems>
-                    ))}
-                </BoxContainer>
+                <div>
+                    <BoxContainer>
+                        {Picked.map(donutList => (
+                            <BoxItems key={"IWorkSuckers"} removeDonut={this.removeDonut} donut_id={donutList}>
+                                <img className="order" alt="Donut" src={this.state.donuts.find(x => x._id === donutList).image} />
+                            </BoxItems>
+                        ))}
+                    </BoxContainer>
+                </div>
             ))
         }
     }
-    removeDonut = DonutId =>{
+    removeDonut = DonutId => {
         const boxId = this.props.match.params.id
-        API.deleteDonut(boxId,DonutId).then(res => this.getBox(boxId));
+        API.deleteDonut(boxId, DonutId).then(res => this.getBox(boxId));
     };
-
     calculateOrder() {
         if (this.state.donutcount === undefined) {
             return <p>no donuts</p>
@@ -128,23 +124,18 @@ class Order extends Component {
                 var donutCounts = { name: output[i], count: countArray[i] }
                 donutArray.push(donutCounts)
             }
-            // return data 
-
             return donutArray.map(Picked => (
                 <OrderedItem key={Picked}>
                     <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
                 </OrderedItem>
-
             ))
         }
     }
-
     handleClick = donutId => {
         const donut = this.state.donuts.find(donut => donut._id === donutId);
         const boxId = this.state.boxId
         API.populateBox(boxId, donut).then(res => this.getBox(boxId));
     };
-
     handleCreateBox = name => {
         const boxData = { boxname: name, donutcount: [] }
         API.saveBox(boxData).then(res =>
@@ -159,11 +150,14 @@ class Order extends Component {
                 ).catch(err => console.log("returningnerror", err))
         )
     };
-
     render() {
-        // console.log("This.state.donuts: " + this.state.donuts);
-        // console.log("This.state.donutcount: " + this.state.donutcount);
-
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
         return (
             <Container fluid>
 
@@ -189,31 +183,16 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
-                        <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
-                        {/* {this.state.boxes.length ? (
-                            <SelectBox>
-                                {this.state.boxes.map(Box => (
-                                    <BoxChoice key={Box._id} handleClick={this.selectBox} box_id={Box._id}>
-                                        <div>
-                                            <p name={Box.name}>
-
-                                            </p>
-                                        </div>
-                                    </BoxChoice>
-                                ))}
-                            </SelectBox>
-                        ) : (
-                            <h3>{this.state.boxname}</h3>
-                            )} */}
                         {
-                            this.renderDonutCount()
+                            <div>
+                                {/* <Slider {...settings}> */}
+                                    {this.renderDonutCount()}
+                                {/* </Slider> */}
+                            </div>
                         }
                         <BoxContent>
-
                             {this.calculateOrder()}
-
                         </BoxContent>
-
                         {/* <Link to="/orderlist">
                             <ListBtn />
                         </Link> */}

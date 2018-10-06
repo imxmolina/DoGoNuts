@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router";
 import Nav from "./components/Nav";
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
+import CreateBoxPage from "./pages/CreateBoxPage/CreateBoxPage";
 
 const App = () => (
   <Router>
@@ -17,13 +18,8 @@ const App = () => (
         }
       </Nav>
       <Switch>
-        <Route exact path="/" component={Order} />
-        <Route exact path="/api/box/:id"
-          // render={(props)=>{
-          //   <Order id={props.match.params.id}/>
-          // }}
-          component={Order}
-        />
+        <Route exact path="/" component={CreateBoxPage} />
+        <Route exact path="/api/box/:id" component={Order}/>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
 
