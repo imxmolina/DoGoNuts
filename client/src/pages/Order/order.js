@@ -136,20 +136,6 @@ class Order extends Component {
         const boxId = this.state.boxId
         API.populateBox(boxId, donut).then(res => this.getBox(boxId));
     };
-    handleCreateBox = name => {
-        const boxData = { boxname: name, donutcount: [] }
-        API.saveBox(boxData).then(res =>
-            API.getBox(res.data._id)
-                .then(res =>
-                    this.setState({
-                        box: res.data,
-                        boxname: res.data.boxname,
-                        boxId: res.data._id,
-                        donutcount: []
-                    })
-                ).catch(err => console.log("returningnerror", err))
-        )
-    };
     render() {
         var settings = {
             dots: true,
