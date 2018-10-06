@@ -1,5 +1,6 @@
 // Required controllers 
 const router = require("express").Router();
+var axios = require("axios");
 const boxController = require("../../controllers/boxControllers");
 const donutController = require("../../controllers/donutControllers");
 const userController = require("../../controllers/userControllers");
@@ -12,13 +13,14 @@ router.route("/api/box")
   .get(boxController.findAll)
   .post(boxController.create)
   .put(boxController.update)
-  .delete(boxController.remove)
+  // .delete(boxController.remove)
 
 // Route for selected box to view orders inside, add order
 router.route("/api/box/:id")  
   .get(boxController.findById)
   .put(boxController.update)
-  
+  .get(donutController.findAll)
+  .delete(boxController.remove)
 
 module.exports = router;
 

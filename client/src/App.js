@@ -18,6 +18,12 @@ const App = () => (
       </Nav>
       <Switch>
         <Route exact path="/" component={Order} />
+        <Route exact path="/api/box/:id"
+          // render={(props)=>{
+          //   <Order id={props.match.params.id}/>
+          // }}
+          component={Order}
+        />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
 
