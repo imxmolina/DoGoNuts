@@ -9,9 +9,10 @@ import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 import { Nav } from "../../components/Nav";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
+import axios from "axios";
 
 class Order extends Component {
-
+    
     state = {
         donuts: [],
         name: "",
@@ -24,27 +25,29 @@ class Order extends Component {
         donutcount: [],
     };
 
-
     logout = () => {
         localStorage.removeItem('jwtToken');
         window.location.reload();
     }
 
-
-
     componentDidMount() {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         this.loadDonuts();
         // this.loadBoxes();
     }
 
     loadDonuts = () => {
-        //API FOR GET DONUT
+        //API FOR GET DONUTS
         API.getDonuts()
             .then(res =>
                 this.setState({ donuts: res.data, name: "", donutId: "" })
             )
-            .catch(err => console.log(err));
-
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    this.props.history.push("/login");
+                }
+            });
+        console.log(this.state.donuts);
     };
 
     loadBoxes = () => {
@@ -53,9 +56,7 @@ class Order extends Component {
             .then(res => {
                 this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
             }
-            )
-            .catch(err => console.log(err)
-            );
+            ).catch(err => console.log(err));
     };
 
     getBox = (boxId) => {
@@ -173,6 +174,9 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
+                        {localStorage.getItem('jwtToken') &&
+                            <button className="btn btn-success" onClick={this.logout}>Logout</button>
+                        }
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                         {this.state.boxes.length ? (
                             <SelectBox>

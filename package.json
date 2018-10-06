@@ -1,7 +1,7 @@
 {
   "name": "dogonuts",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "GoDonuts",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -33,8 +33,7 @@
     "mongoose": "^5.2.17",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-jwt": "^4.0.0"
   },
   "repository": "git+https://github.com/imxmolina/DoGoNuts.git",
   "bugs": {
