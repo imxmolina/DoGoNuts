@@ -5,7 +5,7 @@ require('../../config/passport')(passport);
 var express = require('express');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
-var User = require("../../models/user");
+var User = require("../../models/User");
 
 router.post('/register', function(req, res) {
     if (!req.body.username || !req.body.password) {
@@ -25,7 +25,6 @@ router.post('/register', function(req, res) {
     }
   });
 
-
   router.post('/login', function(req, res) {
     User.findOne({
       username: req.body.username
@@ -38,6 +37,7 @@ router.post('/register', function(req, res) {
         // check if password matches
         user.comparePassword(req.body.password, function (err, isMatch) {
           if (isMatch && !err) {
+            console.log("User AUthenticated: ")
             // if user is found and password is right create a token
             var token = jwt.sign(user.toJSON(), settings.secret);
             // return the information including token as JSON

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Login.css';
@@ -41,21 +41,21 @@ class Login extends Component {
   render() {
     const { username, password, message } = this.state;
     return (
-      <div class="container">
-        <form class="form-signin" onSubmit={this.onSubmit}>
+      <div className="container">
+        <form className="form-signin" onSubmit={this.onSubmit}>
           {message !== '' &&
-            <div class="alert alert-warning alert-dismissible" role="alert">
+            <div className="alert alert-warning alert-dismissible" role="alert">
               { message }
             </div>
           }
-          <h2 class="form-signin-heading">Please sign in</h2>
-          <label for="inputEmail" class="sr-only">Email address</label>
-          <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" class="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <h2 className="form-signin-heading">Please sign in</h2>
+          <label htmlFor="inputEmail" className="sr-only">Email address</label>
+          <input type="email" className="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
+          <label for="inputPassword" className="sr-only">Password</label>
+          <input type="password" className="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
+          <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           <p>
-            Not a member? <Link to="/register"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
+            Not a member? <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
           </p>
         </form>
       </div>

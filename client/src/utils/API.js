@@ -10,7 +10,7 @@ export default {
   },
   // Gets all boxes in database  : R
   getAllBoxes: function() {
-    return axios.get("/api/box");
+    return axios.get("/api/box")
   },
   // Gets the box with the given id : R
   getBox: function(id) {
@@ -32,8 +32,7 @@ export default {
 
   // Gets all donuts data from the database : R
   
-  getDonuts: function(id) {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+  getDonuts: function() {
     return axios.get("/api/donuts")
   },
   // Gets user orders from the database : R

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CreateBox } from "../../components/CreateBox";
 import API from "../../utils/API";
-import ReactModal from 'react-modal';
+// import ReactModal from 'react-modal';
 
 class CreateBoxPage extends Component {
     state = {
