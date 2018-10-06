@@ -164,6 +164,10 @@ class Order extends Component {
         return (
             <Container fluid>
                 <Nav />
+                {localStorage.getItem('jwtToken') &&
+                <button class="btn btn-primary" onClick={this.logout}>Logout</button>
+              }
+
                 <Row>
                     <Col size="md-3">
                         <h1>CHOICES</h1>
