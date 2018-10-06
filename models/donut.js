@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
-const donutSchema = new Schema({
+var donutSchema = new Schema({
     name: { type: String, required: true },
     image: { type: String, required: true }
 });
 
-const Donut = mongoose.model("Donut", donutSchema);
+var Donut = mongoose.model("Donut", donutSchema);
 
 module.exports = Donut;

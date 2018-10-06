@@ -3,14 +3,16 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
+import { CreateBox } from "../../components/CreateBox";
+import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { BoxContent, OrderedItem } from "../../components/BoxContentList";
+import { Nav } from "../../components/Nav";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
-// import axios from 'axios';
-// import Slider from "react-slick";
-
+import axios from "axios";
 
 class Order extends Component {
+    
     state = {
         donuts: [],
         name: "",
@@ -25,17 +27,18 @@ class Order extends Component {
 
     logout = () => {
         localStorage.removeItem('jwtToken');
-        window.location.reload();
+        this.props.history.push("/login");
     }
 
     componentDidMount() {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         this.loadDonuts();
         this.getBox(this.props.match.params.id);
         // this.loadBoxes();
     }
 
     loadDonuts = () => {
-        //API FOR GET DONUT
+        //API FOR GET DONUTS
         API.getDonuts()
             .then(res =>
                 this.setState({ donuts: res.data, name: "", donutId: "" })
@@ -160,7 +163,7 @@ class Order extends Component {
         }
         return (
             <Container fluid>
-
+                <Nav />
                 <Row>
                     <Col size="md-3">
                         <h1>CHOICES</h1>
