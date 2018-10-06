@@ -4,12 +4,11 @@ import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
 import { CreateBox } from "../../components/CreateBox";
-import { SelectBox, BoxChoice } from "../../components/SelectBox";
-import { BoxContent, OrderedItem} from "../../components/BoxContentList";
+// import { SelectBox, BoxChoice } from "../../components/SelectBox";
+import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
 // import axios from 'axios';
-
 
 class Order extends Component {
     state = {
@@ -29,12 +28,12 @@ class Order extends Component {
         window.location.reload();
     }
 
-
-
     componentDidMount() {
         this.loadDonuts();
-        this.loadBoxes();
-        console.log(this.state.donutcount);
+        // this.loadBoxes();
+        // console.log(this.props);
+        this.getBox(this.props.match.params.id);
+        // console.log(this.state.donutcount);
     }
 
     loadDonuts = () => {
@@ -46,45 +45,64 @@ class Order extends Component {
             .catch(err => console.log(err));
     };
 
-    loadBoxes = () => {
-        //API to get all boxes
-        API.getAllBoxes()
-            .then(res => {
-                this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
-            }
-            )
-            .catch(err => console.log(err)
-            );
-    };
+    // loadBoxes = () => {
+    //     //API to get all boxes
+    //     API.getAllBoxes()
+    //         .then(res => 
+                
+    //             {
+    //                 console.log("ALL BOXES   ",res.data);
+
+    //             this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
+    //             }
+    //         )
+    //         .catch(err => console.log(err)
+    //         );
+    // };
 
     getBox = (boxId) => {
-        console.log(boxId);
+        // console.log(boxId);
         API.getBox(
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount
+                box: res.data, donutcount: res.data.donutcount, boxId:this.props.match.params.id
             })
         }
-        ).catch(err => console.log("returningnerror", err))
+        ).catch(err => console.log("returning error", err))
     };
 
     renderDonutCount() {
         // eslint-disable-next-line
-        if (this.state.box.donutcount == undefined) {
-            return []
+        if (this.state.donutcount == undefined ) {
+            return  []
         } else {
-            return this.state.box.donutcount.map(Picked => (
-                <BoxItems key={Picked}>
-                    <img className="order" src={this.state.donuts.find(x => x._id === Picked).image} />
-                </BoxItems>
+            let boxNumber = Math.ceil(this.state.donutcount.length/12);
+            let donutBoxList =[];
+
+            for(let i = 0;i<boxNumber;i++){
+                let donutPart = this.state.donutcount.slice((i*12),(i +1)*12);
+                donutBoxList.push(donutPart);
+            }
+            console.log("ANDY!!! ",donutBoxList);
+            return donutBoxList.map(Picked => (
+                <BoxContainer>
+                    {Picked.map(donutList =>(
+                        <BoxItems key={"IWorkSuckers"} removeDonut={this.removeDonut} donut_id={donutList}>
+                            <img className="order" alt="Donut" src={this.state.donuts.find(x => x._id === donutList).image} />
+                        </BoxItems>
+                    ))}
+                </BoxContainer>
             ))
         }
     }
+    removeDonut = DonutId =>{
+        const boxId = this.props.match.params.id
+        API.deleteDonut(boxId,DonutId).then(res => this.getBox(boxId));
+    };
 
-
-    calculateOrder(){
-        if(this.state.donutcount === undefined) {
+    calculateOrder() {
+        if (this.state.donutcount === undefined) {
             return <p>no donuts</p>
         } else {
             // Logic to manipulate data
@@ -96,32 +114,29 @@ class Order extends Component {
                 }
                 return res;
             }, {});
-            
+
             let output = Object.entries(count)
                 .sort((a, b) => b[1] - a[1]) //2)
                 .map(v => v[0]); //3)
-            
+
             let countArray = Object.entries(count)
                 .sort((a, b) => b[1] - a[1])
                 .map(v => v[1]);
 
-        let donutArray = []
-        for (var i = 0; i < output.length; i++){
-            var donutCounts = {name: output[i], count: countArray[i]}
-            donutArray.push(donutCounts)
-        }
+            let donutArray = []
+            for (var i = 0; i < output.length; i++) {
+                var donutCounts = { name: output[i], count: countArray[i] }
+                donutArray.push(donutCounts)
+            }
             // return data 
-            
+
             return donutArray.map(Picked => (
                 <OrderedItem key={Picked}>
-                <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
-                </OrderedItem> 
-                  
+                    <p key={Picked}>{this.state.donuts.find(x => x._id === Picked.name).name} {Picked.count}</p>
+                </OrderedItem>
+
             ))
-
-
         }
-   
     }
 
     handleClick = donutId => {
@@ -146,8 +161,8 @@ class Order extends Component {
     };
 
     render() {
-        console.log("This.state.donuts: " + this.state.donuts);
-        console.log("This.state.donutcount: " + this.state.donutcount);
+        // console.log("This.state.donuts: " + this.state.donuts);
+        // console.log("This.state.donutcount: " + this.state.donutcount);
 
         return (
             <Container fluid>
@@ -170,12 +185,12 @@ class Order extends Component {
                             </DonutChoice>
                         ) : (
                                 //placeholder image
-                                <h3>No Donuts</h3>
+                                <h3>{this.state.boxname}</h3>
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
-                        {this.state.boxes.length ? (
+                        {/* {this.state.boxes.length ? (
                             <SelectBox>
                                 {this.state.boxes.map(Box => (
                                     <BoxChoice key={Box._id} handleClick={this.selectBox} box_id={Box._id}>
@@ -188,20 +203,17 @@ class Order extends Component {
                                 ))}
                             </SelectBox>
                         ) : (
-                                <h3>No Boxes</h3>
-                            )}
-                        <BoxContainer>
+                            <h3>{this.state.boxname}</h3>
+                            )} */}
+                        {
+                            this.renderDonutCount()
+                        }
+                        <BoxContent>
 
-                            {this.renderDonutCount()}
+                            {this.calculateOrder()}
 
-                        </BoxContainer>
+                        </BoxContent>
 
-                            <BoxContent>
-                      
-                               {this.calculateOrder()}   
-                                
-                            </BoxContent>
-                                
                         {/* <Link to="/orderlist">
                             <ListBtn />
                         </Link> */}

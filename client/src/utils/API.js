@@ -14,8 +14,8 @@ export default {
   },
   // Gets the box with the given id : R
   getBox: function(id) {
-    console.log("GET BOX")
-    console.log("GET BOX ID: " + id);
+    // console.log("GET BOX")
+    // console.log("GET BOX ID: " + id);
     return axios.get("/api/box/" + id);
   },
   // Updates box in database with an additional donut and it's data : U
@@ -39,6 +39,8 @@ export default {
   // Gets user orders from the database : R
   getOrders: function(id) {
     return axios.get("/api/orders")
+  },
+  deleteDonut: function(boxId, donutId) {
+    return axios.delete("/api/box/" + boxId, {data:{donut:donutId}});
   }
-
 };
