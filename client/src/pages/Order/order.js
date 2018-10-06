@@ -27,13 +27,13 @@ class Order extends Component {
 
     logout = () => {
         localStorage.removeItem('jwtToken');
-        window.location.reload();
+        this.props.history.push("/login");
     }
 
     componentDidMount() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         this.loadDonuts();
-        // this.loadBoxes();
+        this.loadBoxes();
     }
 
     loadDonuts = () => {
@@ -42,12 +42,7 @@ class Order extends Component {
             .then(res =>
                 this.setState({ donuts: res.data, name: "", donutId: "" })
             )
-            .catch((error) => {
-                if (error.response.status === 401) {
-                    this.props.history.push("/login");
-                }
-            });
-        console.log(this.state.donuts);
+            .catch(err => console.log(err));
     };
 
     loadBoxes = () => {

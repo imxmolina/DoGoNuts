@@ -22,37 +22,30 @@ getToken = function (headers) {
 };
 
 // GETS ALL DONUTS
-router.get("/api/donuts", passport.authenticate('jwt', { session: false }), function (req, res) {
+function isUserAuth (req, res, next) {
   var token = getToken(req.headers);
+  console.log(token)
   if (token) {
-    donutController.findAll
+    next()
   } else {
     return res.status(403).send({ success: false, msg: 'Unauthorized.' });
   }
-});
+}
 
+// DONUT GET
+router.route("/api/donuts", passport.authenticate('jwt', { session: false }), isUserAuth)
+  .get(donutController.findAll)
 
-// BOX C.R.U.D.
-router.route("/api/box", passport.authenticate('jwt', { session: false }), function (req, res) {
-  var token = getToken(req.headers);
-  console.log(token);
-  if (token) {
-    axios.get(boxController.findAll)
-      .post(boxController.create)
-      .put(boxController.update)
-      .delete(boxController.remove)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
-});
+// BOXES GET AND POST
+router.route("/api/box", passport.authenticate('jwt', { session: false }), isUserAuth)
+  .get(boxController.findAll)
+  .post(boxController.create)
 
-
-// Route for selected box to view orders inside, add order
+// SINGLE BOX GET, PUT, DELETE
 router.route("/api/box/:id")
   .get(boxController.findById)
   .put(boxController.update)
-
-
+  .delete(boxController.remove)
 
 module.exports = router;
 
