@@ -41,5 +41,9 @@ export default {
   },
   deleteDonut: function(boxId, donutId) {
     return axios.delete("/api/box/" + boxId, {data:{donut:donutId}});
+  },
+
+  checkAuth: function() {
+    return axios.get("/api/users")
   }
 };

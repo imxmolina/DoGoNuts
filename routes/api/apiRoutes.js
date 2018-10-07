@@ -3,6 +3,7 @@ const router = require("express").Router();
 var axios = require("axios");
 const boxController = require("../../controllers/boxControllers");
 const donutController = require("../../controllers/donutControllers");
+const userController = require("../../controllers/userControllers");
 
 // PASSPORT
 var passport = require('passport');
@@ -31,7 +32,7 @@ function isUserAuth (req, res, next) {
   } else {
     return res.status(403).send({ success: false, msg: 'Unauthorized.' });
   }
-}
+}  
 
 // DONUT GET
 router.route("/api/donuts", passport.authenticate('jwt', { session: false }), isUserAuth)
@@ -51,6 +52,10 @@ router.route("/api/box/:id")
   .get(donutController.findAll)
   .delete(boxController.remove)
 
+router.get("/api/users", passport.authenticate('jwt', { session: false }), isUserAuth, (req, res) => {
+  res.json({message: "Success."})
+})
+  
 module.exports = router;
 
 
