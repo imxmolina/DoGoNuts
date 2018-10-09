@@ -7,6 +7,7 @@ import { CreateBox } from "../../components/CreateBox";
 import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 import { Nav } from "../../components/Nav";
+import { SendText } from "../../components/SendText";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
 import axios from "axios";
@@ -203,6 +204,7 @@ class Order extends Component {
                         {/* <Link to="/orderlist">
                             <ListBtn />
                         </Link> */}
+                        <SendText></SendText>
                     </Col>
                 </Row>
             </Container>
