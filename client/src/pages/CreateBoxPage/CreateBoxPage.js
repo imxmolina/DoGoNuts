@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { CreateBox } from "../../components/CreateBox";
 import API from "../../utils/API";
-// import ReactModal from 'react-modal';
 import axios from "axios";
+import {Nav} from '../../components/Nav';
+import { Col, Row, Container } from "../../components/Grid";
+
 
 class CreateBoxPage extends Component {
     state = {
@@ -35,11 +37,12 @@ class CreateBoxPage extends Component {
     };
     render() {
         return (
-            <div>
+            <Container fluid>
+                <Nav/>
+
                 <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                 <p>http://localhost:3000/api/box/{this.state.boxId}</p>
-            </div>
-            
+            </Container>  
         )
     }
 }
