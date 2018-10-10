@@ -68,7 +68,7 @@ class CreateBoxPage extends Component {
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                         <p>
                             <a className="nav-link" href={"https://blooming-springs-24465.herokuapp.com/" + this.state.boxId}>
-                                Go to My Box:
+                                Go to My Box: https://blooming-springs-24465.herokuapp.com/{this.state.boxId}
                                 <span class="sr-only">(current)</span>
                             </a>
                         </p>
