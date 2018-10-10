@@ -1,0 +1,9 @@
+.background-white {
+    background-color: white !important;
+}
+
+.BoxTitle{
+    font: bold 15px "Open+Sans:600i", sans-serif;
+    font-weight: bold;
+    color: #dc3545
+}

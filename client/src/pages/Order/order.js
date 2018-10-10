@@ -3,12 +3,11 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
-import { CreateBox } from "../../components/CreateBox";
-import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 import { Nav } from "../../components/Nav";
 // import {Link} from "react-router-dom";
 import API from "../../utils/API";
+import "./order.css"
 import axios from "axios";
 
 class Order extends Component {
@@ -32,9 +31,14 @@ class Order extends Component {
 
     componentDidMount() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        document.body.classList.add("background-white");
         this.loadDonuts();
         this.getBox(this.props.match.params.id);
         // this.loadBoxes();
+    }
+    
+    componentWillUnmount() {
+        document.body.classList.remove("background-white");
     }
 
     loadDonuts = () => {
@@ -64,7 +68,7 @@ class Order extends Component {
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id
+                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname: res.data.boxname
             })
         }
         ).catch(err => console.log("returning error", err))
@@ -170,16 +174,18 @@ class Order extends Component {
 
                 <Row>
                     <Col size="md-3">
-                        <h1>CHOICES</h1>
+                        <div className="donutTitle"><h4>DOUGHNUTS</h4></div>
                         {this.state.donuts.length ? (
                             <DonutChoice>
                                 {this.state.donuts.map(Donut => (
                                     <DonutItem key={Donut._id} handleClick={this.handleClick} donut_id={Donut._id} donut_image={Donut.image}>
-                                        <div>
-                                            <p>
-                                                <img src={Donut.image} alt="" width="50" height="50" />
-                                                {Donut.name}
-                                            </p>
+                                        <div class="row">
+                                        <div class="col-3">
+                                        <img src={Donut.image} alt="" width="70" height="70" />
+                                        </div>
+                                        <div class="col-8 donutnamediv"> 
+                                        {Donut.name}
+                                        </div>      
                                         </div>
                                     </DonutItem>
                                 ))}
@@ -190,6 +196,7 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
+                    <h3 className="BoxTitle">{this.state.boxname}</h3>
                         {
                             <div>
                                 {/* <Slider {...settings}> */}

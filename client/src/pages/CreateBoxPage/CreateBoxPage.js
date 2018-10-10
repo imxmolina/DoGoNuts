@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { CreateBox } from "../../components/CreateBox";
+import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import API from "../../utils/API";
 // import ReactModal from 'react-modal';
 import axios from "axios";
@@ -8,7 +9,8 @@ class CreateBoxPage extends Component {
     state = {
         box: [],
         boxname: "",
-        boxId: ""
+        boxId: "",
+        boxes: []
     }
 
     checkIfAuth = () => {
@@ -19,6 +21,7 @@ class CreateBoxPage extends Component {
 
     componentDidMount() {
         this.checkIfAuth();
+        
     }
     handleCreateBox = name => {
         const boxData = { boxname: name }
@@ -33,13 +36,15 @@ class CreateBoxPage extends Component {
                 ).catch(err => console.log("returningnerror", err)),
         )
     };
+
+
     render() {
         return (
             <div>
                 <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                 <p>http://localhost:3000/api/box/{this.state.boxId}</p>
             </div>
-            
+
         )
     }
 }

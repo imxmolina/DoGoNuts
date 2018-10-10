@@ -48,15 +48,15 @@ class Login extends Component {
               { message }
             </div>
           }
-          <h2 className="form-signin-heading">Please sign in</h2>
+          <h2 className="form-signin-heading">Sign In</h2>
           <label htmlFor="inputEmail" className="sr-only">Email address</label>
           <input type="email" className="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
-          <label for="inputPassword" className="sr-only">Password</label>
+          <label for="inputPassword" className="sr-only">Enter Password</label>
           <input type="password" className="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-          <p>
-            Not a member? <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
-          </p>
+          <button className="btn btn-lg btn-success btn-block " type="submit">Login</button>
+          <button className="btn btn-lg btn-danger btn-block">
+             <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
+          </button>
         </form>
       </div>
     );
