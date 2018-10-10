@@ -87,7 +87,6 @@ var tiger = [];
 var tigerfinal = [];
 
 
-
 // func def
 function MakeItRain(req) {
 

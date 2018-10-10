@@ -35,23 +35,23 @@ class CreateBoxPage extends Component {
                 ).catch(err => console.log("returning error", err)),
         )
     };
-    constructor () {
+    constructor() {
         super();
         this.state = {
-          showModal: false
+            showModal: false
         };
-        
+
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-      }
-      
-      handleOpenModal () {
+    }
+
+    handleOpenModal() {
         this.setState({ showModal: true });
-      }
-      
-      handleCloseModal () {
+    }
+
+    handleCloseModal() {
         this.setState({ showModal: false });
-      }
+    }
     render() {
         return (
             <Container fluid>
@@ -66,8 +66,12 @@ class CreateBoxPage extends Component {
                     >
                         {/* Where the order magic happens */}
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
-                        <p>http://localhost:3000/api/box/{this.state.boxId}</p>
-
+                        <p>
+                            <a className="nav-link" href={"https://blooming-springs-24465.herokuapp.com/" + this.state.boxId}>
+                                Go to My Box:
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </p>
                         <button onClick={this.handleCloseModal}>Cancel</button>
                     </ReactModal>
                 </div>
