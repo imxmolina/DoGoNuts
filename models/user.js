@@ -13,7 +13,7 @@ var UserSchema = new Schema({
         required: true
     }
 });
-
+ 
 UserSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
