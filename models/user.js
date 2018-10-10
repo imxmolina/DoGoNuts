@@ -43,6 +43,6 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-const User = mongoose.model('user', UserSchema);
-module.exports = User;
+const User = mongoose.model('User', UserSchema);
+module.exports = {"Im a user":"User"};
 
