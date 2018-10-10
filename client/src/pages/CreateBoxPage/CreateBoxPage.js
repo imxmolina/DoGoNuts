@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { CreateBox } from "../../components/CreateBox";
 import API from "../../utils/API";
 import axios from "axios";
-import {Nav} from '../../components/Nav';
+import { Nav } from '../../components/Nav';
 import { Col, Row, Container } from "../../components/Grid";
-
+import ReactModal from 'react-modal';
 
 class CreateBoxPage extends Component {
     state = {
@@ -32,17 +32,46 @@ class CreateBoxPage extends Component {
                         boxname: res.data.boxname,
                         boxId: res.data._id,
                     })
-                ).catch(err => console.log("returningnerror", err)),
+                ).catch(err => console.log("returning error", err)),
         )
     };
+    constructor () {
+        super();
+        this.state = {
+          showModal: false
+        };
+        
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+      }
+      
+      handleOpenModal () {
+        this.setState({ showModal: true });
+      }
+      
+      handleCloseModal () {
+        this.setState({ showModal: false });
+      }
     render() {
         return (
             <Container fluid>
-                <Nav/>
+                <Nav />
+                <div>
+                    <button onClick={this.handleOpenModal}>
+                        <img src="./assets/images/createBox.png" alt="" width="200em" height="200em" />
+                    </button>
+                    <ReactModal
+                        isOpen={this.state.showModal}
+                        contentLabel="Minimal Modal Example"
+                    >
+                        {/* Where the order magic happens */}
+                        <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
+                        <p>http://localhost:3000/api/box/{this.state.boxId}</p>
 
-                <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
-                <p>http://localhost:3000/api/box/{this.state.boxId}</p>
-            </Container>  
+                        <button onClick={this.handleCloseModal}>Cancel</button>
+                    </ReactModal>
+                </div>
+            </Container>
         )
     }
 }
