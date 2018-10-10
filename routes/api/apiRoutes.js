@@ -3,7 +3,6 @@ const router = require("express").Router();
 var axios = require("axios");
 const boxController = require("../../controllers/boxControllers");
 const donutController = require("../../controllers/donutControllers");
-const userController = require("../../controllers/userControllers");
 
 // PASSPORT
 var passport = require('passport');
@@ -61,7 +60,7 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), isUse
 const mongojs = require("mongojs");
 var ObjectID = require('mongodb').ObjectID;
 
-const databaseUrl = "donutDB";
+const databaseUrl = (process.env.MONGODB_URI || "mongodb://localhost/donutDB");
 const collections = ["boxes"];
 
 // Use mongojs to hook the database to the db variable
