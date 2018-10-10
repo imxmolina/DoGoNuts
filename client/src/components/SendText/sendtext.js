@@ -3,7 +3,7 @@ import axios from "axios";
 
  //////// --> NEXMO CODE <-- ////////////////////
 
- function MakeItRain(){
+ function MakeItRain1(){
 
      // // // // --> --> --> send a POST
      var x = window.location.href;
@@ -24,5 +24,5 @@ import axios from "axios";
  //////// --> END OF NEXMO CODE <-- ////////////////////
 
  export const SendText = () => (
-         <button onClick={MakeItRain}> Make It Rain </button>
+         <button onClick={MakeItRain1}> Make It Rain </button>
  ); 
