@@ -1,5 +1,5 @@
 module.exports = {
     Donut: require("./donut"),
-    User: "work man",
+    User: require("./User"),
     Box: require("./box")
 }
