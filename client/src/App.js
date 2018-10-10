@@ -13,10 +13,9 @@ const App = () => (
     <div>
       <Switch>
         <Route exact path="/" component={CreateBoxPage} />
-        <Route exact path="/api/box/:id" component={Order}/>
+        <Route exact path="/:id" component={Order}/>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
-        {/* <Route exact path="/orderlist" component={ orderList }/> */}
         <Route component={errorPage} />
       </Switch>
     </div>

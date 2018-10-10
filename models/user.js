@@ -13,7 +13,7 @@ var UserSchema = new Schema({
         required: true
     }
 });
-
+ 
 UserSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
@@ -43,5 +43,6 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+let User = mongoose.model('User', UserSchema);
+module.exports = User;
 

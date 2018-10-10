@@ -11,3 +11,24 @@
   align-content: flex-start;
   overflow: none;
 }
+/* Media queries */
+@media (max-width: 830px) {
+  .boxContainer {
+      height:21em;
+  }
+}
+@media (max-width: 765px) {
+  .boxContainer {
+      height:25em;
+  }
+}
+@media (max-width: 665px) {
+  .boxContainer {
+      height:19em;
+  }
+}
+@media (max-width: 465px) {
+  .boxContainer {
+      height:15em;
+  }
+}

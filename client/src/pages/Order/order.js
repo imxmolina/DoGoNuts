@@ -3,16 +3,15 @@ import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
 import { Col, Row, Container } from "../../components/Grid";
-import { CreateBox } from "../../components/CreateBox";
-import { SelectBox, BoxChoice } from "../../components/SelectBox";
 import { BoxContent, OrderedItem } from "../../components/BoxContentList";
-import { Nav } from "../../components/Nav";
-// import {Link} from "react-router-dom";
 import API from "../../utils/API";
 import axios from "axios";
+import Carousel from 'nuka-carousel';
+import {Nav} from '../../components/Nav';
+import { SendText } from "../../components/SendText";
 
 class Order extends Component {
-    
+
     state = {
         donuts: [],
         name: "",
@@ -34,7 +33,6 @@ class Order extends Component {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         this.loadDonuts();
         this.getBox(this.props.match.params.id);
-        // this.loadBoxes();
     }
 
     loadDonuts = () => {
@@ -45,20 +43,7 @@ class Order extends Component {
             )
             .catch(err => console.log(err));
     };
-    // loadBoxes = () => {
-    //     //API to get all boxes
-    //     API.getAllBoxes()
-    //         .then(res => 
 
-    //             {
-    //                 console.log("ALL BOXES   ",res.data);
-
-    //             this.setState({ boxes: res.data[0], box: res.data[0], boxId: res.data[0]._id, donutcount: res.data[0].donutcount });
-    //             }
-    //         )
-    //         .catch(err => console.log(err)
-    //         );
-    // };
     getBox = boxId => {
         API.getBox(
             boxId
@@ -154,20 +139,12 @@ class Order extends Component {
         )
     };
     render() {
-        var settings = {
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        }
         return (
             <Container fluid>
-                <Nav />
-                {localStorage.getItem('jwtToken') &&
-                <button class="btn btn-primary" onClick={this.logout}>Logout</button>
-              }
-
+                <Nav
+                    store = {localStorage.getItem('jwtToken') && <button className="btn btn-primary" onClick={this.logout}>Logout</button>}
+                />
+                
                 <Row>
                     <Col size="md-3">
                         <h1>CHOICES</h1>
@@ -190,19 +167,29 @@ class Order extends Component {
                             )}
                     </Col>
                     <Col size="md-9 sm-12">
-                        {
-                            <div>
-                                {/* <Slider {...settings}> */}
-                                    {this.renderDonutCount()}
-                                {/* </Slider> */}
-                            </div>
+                        {/* //creates boxes and slider */}
+                        <h2>Donut BOXES</h2>
+                        {this.state.donutcount.length === 0 ? (
+                            <BoxContainer>
+                                <div>
+                                    <h1>Order up!</h1>
+                                </div>
+                            </BoxContainer>
+                        ) : (
+                                this.state.donutcount.length > 12 ? (
+                                    <Carousel>
+                                        {this.renderDonutCount()}
+                                    </Carousel>
+                                ) : (
+                                        this.renderDonutCount()
+                                    )
+                            )
                         }
+                        {/* claculate numbers */}
                         <BoxContent>
                             {this.calculateOrder()}
                         </BoxContent>
-                        {/* <Link to="/orderlist">
-                            <ListBtn />
-                        </Link> */}
+                        <SendText></SendText> 
                     </Col>
                 </Row>
             </Container>

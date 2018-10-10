@@ -7,6 +7,6 @@ var donutSchema = new Schema({
     image: { type: String, required: true }
 });
 
-var Donut = mongoose.model("Donut", donutSchema);
+const Donut = mongoose.model("Donut", donutSchema);
 
 module.exports = Donut;
