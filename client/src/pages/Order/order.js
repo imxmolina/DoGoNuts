@@ -8,7 +8,7 @@ import API from "../../utils/API";
 import axios from "axios";
 import Carousel from 'nuka-carousel';
 import {Nav} from '../../components/Nav';
-
+import { SendText } from "../../components/SendText";
 
 class Order extends Component {
 
@@ -189,9 +189,7 @@ class Order extends Component {
                         <BoxContent>
                             {this.calculateOrder()}
                         </BoxContent>
-                        {/* <Link to="/orderlist">
-                            <ListBtn />
-                        </Link> */}
+                        <SendText></SendText> 
                     </Col>
                 </Row>
             </Container>
