@@ -6,9 +6,9 @@ export const CreateBox = props => {
   return (
     <div>
       <div id="create-box-wrapper">
-        <input id="create-box-input" className="form-control-inline" type="text" placeholder="Group Name" />
-        <button id="create-box-btn" type="button" className="btn-inline btn-success" onClick={() => props.handleCreateBox(document.getElementById('create-box-input').value)}>Create a Box</button>
-
+      <h3 className="instructions">Name Your Box</h3>
+      <input id="create-box-input" className="form-control-inline" type="text" placeholder="Group Name" />
+        <button id="create-box-btn" type="button" className="btn-inline btn-success" onClick={() => props.handleCreateBox(document.getElementById('create-box-input').value)}>GO!</button>
       </div>
     </div>
   )

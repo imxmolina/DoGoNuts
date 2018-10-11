@@ -1,17 +1,23 @@
 input {
-    margin: 0;
-  }
-  #create-box-wrapper {
-    margin: auto;
-    width: 80%;
-  }
-  #create-box-input {
-    border-radius: 2px;
-    margin: 20px 20px 20px 140px;
-    width: 40%;
-  }
-  #create-box-btn {
-    border-radius: 2px;
-    margin: 0;
-    width: 20%;
-  } 
+  margin: 0;
+}
+#create-box-wrapper {
+  margin: auto;
+  width: 100%;
+  max-width: 400px;
+padding: 15px;
+margin: 0 auto;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
+}
+#create-box-input {
+  border-radius: 2px;
+  margin: 20px 20px 20px 60px;
+  width: 70%;
+}
+#create-box-btn {
+  border-radius: 2px;
+  margin-left: 150px;
+  width: 20%;
+  background-color: #0b6a38;
+} 
