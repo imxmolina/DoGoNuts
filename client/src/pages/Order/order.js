@@ -162,7 +162,7 @@ class Order extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="md-3">
+                    <Col size="md-3" style="margin-top: 0">
                         {/* Box Menu */}
                         <div className="donutTitle"><h4>DOUGHNUTS</h4></div>
                         {this.state.donuts.length ? (
@@ -184,6 +184,9 @@ class Order extends Component {
                                 //placeholder image
                                 <h3>{this.state.boxname}</h3>
                             )}
+                        <BoxContent>
+                            {this.calculateOrder()}
+                        </BoxContent>
                     </Col>
                     <Col size="md-9 sm-12">
                         {/* //creates boxes and slider */}
@@ -205,9 +208,6 @@ class Order extends Component {
                             )
                         }
                         {/* claculate numbers */}
-                        <BoxContent>
-                            {this.calculateOrder()}
-                        </BoxContent>
                     </Col>
                 </Row>
             </Container>
