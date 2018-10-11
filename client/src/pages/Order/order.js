@@ -1,4 +1,5 @@
 // eslint-disable-next-line
+//Heroku Version
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
@@ -7,8 +8,10 @@ import { BoxContent, OrderedItem } from "../../components/BoxContentList";
 import API from "../../utils/API";
 import axios from "axios";
 import Carousel from 'nuka-carousel';
-import {Nav} from '../../components/Nav';
 import { SendText } from "../../components/SendText";
+import "./order.css";
+import { Link } from 'react-router-dom';
+
 
 class Order extends Component {
 
@@ -30,6 +33,7 @@ class Order extends Component {
     }
 
     componentDidMount() {
+        document.body.classList.add("background-white");
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         this.loadDonuts();
         this.getBox(this.props.match.params.id);
@@ -49,7 +53,7 @@ class Order extends Component {
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id
+                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname: res.data.boxname
             })
         }
         ).catch(err => console.log("returning error", err))
@@ -67,9 +71,11 @@ class Order extends Component {
                 let donutPart = this.state.donutcount.slice((i * 12), (i + 1) * 12);
                 donutBoxList.push(donutPart);
             }
-            console.log("ANDY!!! ", donutBoxList);
             return donutBoxList.map(Picked => (
                 <div>
+                    <div className="BoxTitle">
+                        <h1>{this.state.boxname}</h1>
+                    </div>
                     <BoxContainer>
                         {Picked.map(donutList => (
                             <BoxItems key={"IWorkSuckers"} removeDonut={this.removeDonut} donut_id={donutList}>
@@ -135,28 +141,41 @@ class Order extends Component {
                         boxId: res.data._id,
                         donutcount: []
                     })
-                ).catch(err => console.log("returningnerror", err))
+                ).catch(err => console.log("returning error", err))
         )
     };
     render() {
         return (
             <Container fluid>
-                <Nav
-                    store = {localStorage.getItem('jwtToken') && <button className="btn btn-primary" onClick={this.logout}>Logout</button>}
-                />
-                
+                <Row>
+                    <Col size="lg-12">
+                        <div className="Nav">
+                            <SendText></SendText>
+
+                            {/* Logout button */}
+                            {
+                                localStorage.getItem('jwtToken') &&
+                                <button className="btn btnLogout" onClick={this.logout}>Logout</button>
+                            }
+                            <Link to={`/`} activeClassName="current">Create Box</Link>
+                        </div>
+                    </Col>
+                </Row>
                 <Row>
                     <Col size="md-3">
-                        <h1>CHOICES</h1>
+                        {/* Box Menu */}
+                        <div className="donutTitle"><h4>DOUGHNUTS</h4></div>
                         {this.state.donuts.length ? (
                             <DonutChoice>
                                 {this.state.donuts.map(Donut => (
                                     <DonutItem key={Donut._id} handleClick={this.handleClick} donut_id={Donut._id} donut_image={Donut.image}>
-                                        <div>
-                                            <p>
-                                                <img src={Donut.image} alt="" width="50" height="50" />
+                                        <div className="row">
+                                            <div className="col-3">
+                                                <img src={Donut.image} alt="" width="70" height="70" />
+                                            </div>
+                                            <div className="col-8 donutnamediv">
                                                 {Donut.name}
-                                            </p>
+                                            </div>
                                         </div>
                                     </DonutItem>
                                 ))}
@@ -168,12 +187,11 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         {/* //creates boxes and slider */}
-                        <h2>Donut BOXES</h2>
                         {this.state.donutcount.length === 0 ? (
                             <BoxContainer>
-                                <div>
-                                    <h1>Order up!</h1>
-                                </div>
+
+                                <div className="OrderUp"><h4>Order Up!</h4></div>
+
                             </BoxContainer>
                         ) : (
                                 this.state.donutcount.length > 12 ? (
@@ -183,13 +201,13 @@ class Order extends Component {
                                 ) : (
                                         this.renderDonutCount()
                                     )
+
                             )
                         }
                         {/* claculate numbers */}
                         <BoxContent>
                             {this.calculateOrder()}
                         </BoxContent>
-                        <SendText></SendText> 
                     </Col>
                 </Row>
             </Container>

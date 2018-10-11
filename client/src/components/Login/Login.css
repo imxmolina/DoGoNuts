@@ -1,20 +1,47 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #eee;
+}
+.background-white {
+  background-color: white !important;
 }
 button {
   margin: auto;
 }
-
+container {
+  margin: auto;
+  width: 70%;
+}
+.sr-only{
+  color: #0b6a38;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
-  margin-bottom: 10px;
+  text-align: center;
+ font-family: 'Lato', sans-serif;
+ font-weight: bold;
+  margin-bottom: 20px;
+}
+.btnLogin{
+  background-color: #0b6a38;
+  color: white;
+}
+.Logo{
+margin-left: 80px;
+ }
+.btnRegister{
+  background-color: #dc3545;
+  color: white;
+  margin-bottom: 20px;
+}
+.form-signin-heading {
+  padding-top: 20px;
 }
 .form-signin .checkbox {
   font-weight: normal;
@@ -24,6 +51,8 @@ button {
   height: auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  border-width: 0;
+  border-bottom: 1px solid #dfdfdf;
   padding: 10px;
   font-size: 16px;
 }
@@ -31,15 +60,18 @@ button {
   z-index: 2;
 }
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
+  margin-bottom: 3px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 .form-signin p {
-  margin-top: 10px;
+  margin-top: 2px;
+  padding-left: 10px;
+  color: #0b6a38;
+  font: bold 15px  "Lato:400,900i", sans-serif; 
 }

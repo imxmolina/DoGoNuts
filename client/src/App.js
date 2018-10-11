@@ -13,7 +13,7 @@ const App = () => (
     <div>
       <Switch>
         <Route exact path="/" component={CreateBoxPage} />
-        <Route exact path="/:id" component={Order}/>
+        <Route exact path="/box/:id" component={Order}/>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route component={errorPage} />

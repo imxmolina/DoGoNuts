@@ -48,15 +48,19 @@ class Login extends Component {
               { message }
             </div>
           }
-          <h2 className="form-signin-heading">Please sign in</h2>
-          <label htmlFor="inputEmail" className="sr-only">Email address</label>
-          <input type="email" className="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
-          <label for="inputPassword" className="sr-only">Password</label>
-          <input type="password" className="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-          <p>
-            Not a member? <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
-          </p>
+
+          <img className="Logo" alt="" src={require('../../assets/images/kkd.ico')} width="150px" />
+          <h2 className="form-signin-heading">SIGN IN</h2>
+
+          
+          <input type="email" id="inputEmail" className="form-control" placeholder="fresh@krispykreme.com" name="username" value={username} onChange={this.onChange} required/>
+          <p>EMAIL ADDRESS</p>
+          <input type="password" id="inputPassword" className="form-control" placeholder="******" name="password" value={password} onChange={this.onChange} required/>
+          <p>PASSWORD</p>
+          <button className="btn btn-lg btn-block btnLogin" type="submit">Login</button>
+          <button className="btn btn-lg btn-block btnRegister">
+             <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
+          </button>
         </form>
       </div>
     );

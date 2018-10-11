@@ -1,0 +1,11 @@
+.text{
+    color: #0b6a38;
+    background-color:"none";
+    position: relative;
+    top:2px;
+}
+.point{
+    height:35px;
+    width:35px;
+
+}
