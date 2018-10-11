@@ -8,7 +8,17 @@
     font-family: 'Galada', cursive;
     color: #dc3545;
     height: 40px;
-    background-color:grey;
+    background-color:#0b6a38;
     text-align: center;
     border-radius: calc(100px / 2);
+    width:30%;
+    position:relative;
+    left:30%;
+    margin:10px;
+    margin-top:81px;
 }
+h3{
+    vertical-align: center;
+    height: 30px;
+    text-align: center;
+  }

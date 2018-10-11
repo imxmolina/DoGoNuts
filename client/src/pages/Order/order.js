@@ -1,4 +1,5 @@
 // eslint-disable-next-line
+//Heroku Version
 import React, { Component } from "react";
 import { DonutChoice, DonutItem } from "../../components/donutChoice";
 import { BoxContainer, BoxItems } from "../../components/boxContainer";
@@ -50,7 +51,7 @@ class Order extends Component {
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname: res.data.boxname
+                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname:res.data.boxname
             })
         }
         ).catch(err => console.log("returning error", err))
@@ -68,7 +69,6 @@ class Order extends Component {
                 let donutPart = this.state.donutcount.slice((i * 12), (i + 1) * 12);
                 donutBoxList.push(donutPart);
             }
-            console.log("ANDY!!! ", donutBoxList);
             return donutBoxList.map(Picked => (
                 <div>
                     <BoxContainer>
@@ -144,12 +144,13 @@ class Order extends Component {
             <Container fluid>
                 <Row>
                     <Col size="md-3">
+                        {/* Logout button */}
                         {
                             localStorage.getItem('jwtToken') &&
                             <button className="btn btn-primary" onClick={this.logout}>Logout</button>
                         }
+                        {/* Box Menu */}
                         <div className="donutTitle"><h4>DOUGHNUTS</h4></div>
-
                         {this.state.donuts.length ? (
                             <DonutChoice>
                                 {this.state.donuts.map(Donut => (
@@ -172,7 +173,7 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         {/* //creates boxes and slider */}
-                        <h3 className="BoxTitle">{this.state.boxname}</h3>
+                        <div className="BoxTitle"><h3>{this.state.boxname}</h3></div>
                         {this.state.donutcount.length === 0 ? (
                             <BoxContainer>
                                 <div>

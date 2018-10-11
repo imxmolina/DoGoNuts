@@ -1,12 +1,10 @@
 .menu{
     cursor:pointer
 }
-
 container {
     background-color: white
 }
 .DonutChoiceDiv { 
-    position: relative;
     margin-top: 30px;
     border: 4px solid #0b6a38;
     height: 500px;
@@ -36,8 +34,4 @@ h4 {
     text-align: center;
     color: white;
     border-radius: calc(100px / 2);
-    position:absolute;
-    top: -15px;
-    left: 5px;
-    z-index: 1;
 }

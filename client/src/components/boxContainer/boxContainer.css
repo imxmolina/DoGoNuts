@@ -11,10 +11,7 @@
   align-content: flex-start;
   overflow: none;
 }
-h3{
-  height: 30px;
-  text-align: center;
-}
+
 /* Media queries */
 @media (max-width: 830px) {
   .boxContainer {

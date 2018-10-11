@@ -4,7 +4,6 @@ import API from "../../utils/API";
 import axios from "axios";
 import { Col, Row, Container } from "../../components/Grid";
 import ReactModal from 'react-modal';
-import "./CreateBoxPage.css";
 
 class CreateBoxPage extends Component {
     state = {
@@ -66,8 +65,8 @@ class CreateBoxPage extends Component {
                         {/* Where the order magic happens */}
                         <CreateBox boxname={this.state.boxname} handleCreateBox={this.handleCreateBox} />
                         <p>
-                            <a className="nav-link" href={"https://blooming-springs-24465.herokuapp.com/" + this.state.boxId}>
-                                Go to My Box: https://blooming-springs-24465.herokuapp.com/box/{this.state.boxId}
+                            <a className="nav-link" href={"https://blooming-springs-24465.herokuapp.com/box/" + this.state.boxId}>
+                                     Go to My Box: https://blooming-springs-24465.herokuapp.com/box/{this.state.boxId}
                                 <span class="sr-only">(current)</span>
                             </a>
                         </p>
