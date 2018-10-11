@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CreateBox } from "../../components/CreateBox";
 import API from "../../utils/API";
 import axios from "axios";
-import { Col, Row, Container } from "../../components/Grid";
+import { Container } from "../../components/Grid";
 import ReactModal from 'react-modal';
 
 class CreateBoxPage extends Component {

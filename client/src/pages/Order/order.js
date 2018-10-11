@@ -10,6 +10,8 @@ import axios from "axios";
 import Carousel from 'nuka-carousel';
 import { SendText } from "../../components/SendText";
 import "./order.css";
+import { Link } from 'react-router-dom';
+
 
 class Order extends Component {
 
@@ -51,7 +53,7 @@ class Order extends Component {
             boxId
         ).then(res => {
             this.setState({
-                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname:res.data.boxname
+                box: res.data, donutcount: res.data.donutcount, boxId: this.props.match.params.id, boxname: res.data.boxname
             })
         }
         ).catch(err => console.log("returning error", err))
@@ -71,6 +73,9 @@ class Order extends Component {
             }
             return donutBoxList.map(Picked => (
                 <div>
+                    <div className="BoxTitle">
+                        <h1>{this.state.boxname}</h1>
+                    </div>
                     <BoxContainer>
                         {Picked.map(donutList => (
                             <BoxItems key={"IWorkSuckers"} removeDonut={this.removeDonut} donut_id={donutList}>
@@ -143,12 +148,21 @@ class Order extends Component {
         return (
             <Container fluid>
                 <Row>
+                    <Col size="lg-12">
+                        <div className="Nav">
+                            <SendText></SendText>
+
+                            {/* Logout button */}
+                            {
+                                localStorage.getItem('jwtToken') &&
+                                <button className="btn btnLogout" onClick={this.logout}>Logout</button>
+                            }
+                            <Link to={`/`} activeClassName="current">Create Box</Link>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
                     <Col size="md-3">
-                        {/* Logout button */}
-                        {
-                            localStorage.getItem('jwtToken') &&
-                            <button className="btn btn-primary" onClick={this.logout}>Logout</button>
-                        }
                         {/* Box Menu */}
                         <div className="donutTitle"><h4>DOUGHNUTS</h4></div>
                         {this.state.donuts.length ? (
@@ -173,12 +187,11 @@ class Order extends Component {
                     </Col>
                     <Col size="md-9 sm-12">
                         {/* //creates boxes and slider */}
-                        <div className="BoxTitle"><h3>{this.state.boxname}</h3></div>
                         {this.state.donutcount.length === 0 ? (
                             <BoxContainer>
-                                <div>
-                                    <h1>Order up!</h1>
-                                </div>
+
+                                <div className="OrderUp"><h4>Order Up!</h4></div>
+
                             </BoxContainer>
                         ) : (
                                 this.state.donutcount.length > 12 ? (
@@ -188,13 +201,13 @@ class Order extends Component {
                                 ) : (
                                         this.renderDonutCount()
                                     )
+
                             )
                         }
                         {/* claculate numbers */}
                         <BoxContent>
                             {this.calculateOrder()}
                         </BoxContent>
-                        <SendText></SendText>
                     </Col>
                 </Row>
             </Container>

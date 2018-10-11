@@ -49,7 +49,7 @@ class Login extends Component {
             </div>
           }
 
-          <img className="Logo" src={require('../../assets/images/kkd.ico')} width="150px" />
+          <img className="Logo" alt="" src={require('../../assets/images/kkd.ico')} width="150px" />
           <h2 className="form-signin-heading">SIGN IN</h2>
 
           

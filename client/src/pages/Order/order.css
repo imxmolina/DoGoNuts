@@ -1,24 +1,61 @@
+/* Full Body */
 @import url('https://fonts.googleapis.com/css?family=Galada');
 .background-white {
     background-color: white !important;
 }
-
+/* Row 1 */
+.btnLogout{
+    color: #0b6a38;
+  }
+.Nav{
+    color: #0b6a38;
+    position: relative;
+    left:75%;
+}
+a{
+    color: #0b6a38;
+    position: relative;
+    top:3px;
+}
+/* Row2 */
 .BoxTitle{
     font: lighter 3em "Open+Sans:600i", sans-serif;
     font-family: 'Galada', cursive;
     color: #dc3545;
-    height: 40px;
-    background-color:#0b6a38;
     text-align: center;
     border-radius: calc(100px / 2);
     width:30%;
     position:relative;
-    left:30%;
-    margin:10px;
-    margin-top:81px;
+    left:35%;
+    margin-bottom:20px;
+    margin-top:23px;
+    padding-top:3px;
 }
-h3{
-    vertical-align: center;
-    height: 30px;
+h1.bigger{
     text-align: center;
+  }
+.OrderUp{
+    margin-top:15%;
+}
+
+/* Media queries */
+@media (max-width: 830px) {
+    .Nav {
+        left:70%;
+    }
+  }
+  @media (max-width: 765px) {
+    .Nav {
+        left:70%;
+    }
+  }
+  @media (max-width: 665px) {
+    .Nav {
+        left:60%;
+    }
+  }
+  @media (max-width: 465px) {
+    .Nav {
+        left:55%;
+    }
   }

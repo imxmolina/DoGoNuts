@@ -35,7 +35,7 @@ class Create extends Component {
       <div className="container">
         <form className="form-signin" onSubmit={this.onSubmit}>
 
-          <img className="Logo" src={require('../../assets/images/kkd.ico')} width="150px" />
+          <img className="Logo" alt="" src={require('../../assets/images/kkd.ico')} width="150px" />
 
           <h2 className="form-signin-heading">Create Account</h2>
 
