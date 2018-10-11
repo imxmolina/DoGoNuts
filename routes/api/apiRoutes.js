@@ -34,7 +34,7 @@ function isUserAuth (req, res, next) {
 }  
 
 // DONUT GET
-router.route("/api/donuts")
+router.route("/api/donuts",passport.authenticate('jwt', { session: false }), isUserAuth)
   .get(donutController.findAll)
 
 // BOXES GET AND POST
